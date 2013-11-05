@@ -1,4 +1,12 @@
 /*
+ * @author lalala
+ * @author 
+ * @author
+ * @author
+ * @version 
+ */
+
+/*
  * The MIT License
  *
  * Copyright 2013 4 Guys in a Bucket.
