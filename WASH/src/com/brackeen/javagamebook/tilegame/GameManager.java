@@ -46,8 +46,8 @@ import com.brackeen.javagamebook.test.GameCore;
 import com.brackeen.javagamebook.tilegame.sprites.*;
 
 /**
-    GameManager manages all parts of the game.
-*/
+ * GameManager manages all parts of the game.
+ */
 public class GameManager extends GameCore {
 
     public static void main(String[] args) {
@@ -77,7 +77,10 @@ public class GameManager extends GameCore {
     private GameAction jump;
     private GameAction exit;
 
-
+    /**
+     * Initializes Game and variables.
+     */
+    
     public void init() {
         super.init();
 
@@ -111,15 +114,18 @@ public class GameManager extends GameCore {
 
 
     /**
-        Closes any resurces used by the GameManager.
-    */
+     * Closes any resources used by the GameManager.
+     */
     public void stop() {
         super.stop();
         midiPlayer.close();
         soundManager.close();
     }
 
-
+    /**
+     * Declares input keys
+     */
+    
     private void initInput() {
         moveLeft = new GameAction("moveLeft");
         moveRight = new GameAction("moveRight");
@@ -138,6 +144,10 @@ public class GameManager extends GameCore {
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
     }
 
+    /**
+     * Checks input if player is alive
+     * @param elapsedTime  Time elapsed
+     */
 
     private void checkInput(long elapsedTime) {
 
@@ -162,6 +172,10 @@ public class GameManager extends GameCore {
 
     }
 
+    /**
+     * Draw Method
+     * @param g  Graphics2D
+     */
 
     public void draw(Graphics2D g) {
         renderer.draw(g, map,
@@ -170,16 +184,16 @@ public class GameManager extends GameCore {
 
 
     /**
-        Gets the current map.
-    */
+     * Gets the current map.
+     */
     public TileMap getMap() {
         return map;
     }
 
 
     /**
-        Turns on/off drum playback in the midi music (track 1).
-    */
+     * Turns on/off drum playback in the midi music (track 1).
+     */
     public void toggleDrumPlayback() {
         Sequencer sequencer = midiPlayer.getSequencer();
         if (sequencer != null) {
@@ -190,10 +204,20 @@ public class GameManager extends GameCore {
 
 
     /**
-        Gets the tile that a Sprites collides with. Only the
-        Sprite's X or Y should be changed, not both. Returns null
-        if no collision is detected.
-    */
+     
+     */
+    
+    /**
+     * Gets the tile that a Sprites collides with. Only the
+     * Sprite's X or Y should be changed, not both. Returns null
+     * if no collision is detected.
+     * 
+     * @param sprite
+     * @param newX
+     * @param newY
+     * @return Point
+     */
+    
     public Point getTileCollision(Sprite sprite,
         float newX, float newY)
     {
@@ -262,9 +286,12 @@ public class GameManager extends GameCore {
 
 
     /**
-        Gets the Sprite that collides with the specified Sprite,
-        or null if no Sprite collides with the specified Sprite.
-    */
+     * Gets the Sprite that collides with the specified Sprite,
+     * or null if no Sprite collides with the specified Sprite.
+     * 
+     * @param sprite
+     * @return Sprite
+     */
     public Sprite getSpriteCollision(Sprite sprite) {
 
         // run through the list of Sprites
@@ -283,9 +310,11 @@ public class GameManager extends GameCore {
 
 
     /**
-        Updates Animation, position, and velocity of all Sprites
-        in the current map.
-    */
+     * Updates Animation, position, and velocity of all Sprites
+     * in the current map.
+     * 
+     * @param elapsedTime  Time Elapsed
+     */
     public void update(long elapsedTime) {
         Creature player = (Creature)map.getPlayer();
 
@@ -323,9 +352,12 @@ public class GameManager extends GameCore {
 
 
     /**
-        Updates the creature, applying gravity for creatures that
-        aren't flying, and checks collisions.
-    */
+     * Updates the creature, applying gravity for creatures that
+     * aren't flying, and checks collisions.
+     * 
+     * @param creature
+     * @param elapsedTime
+     */
     private void updateCreature(Creature creature,
         long elapsedTime)
     {
@@ -392,10 +424,13 @@ public class GameManager extends GameCore {
 
 
     /**
-        Checks for Player collision with other Sprites. If
-        canKill is true, collisions with Creatures will kill
-        them.
-    */
+     * Checks for Player collision with other Sprites. If
+     * canKill is true, collisions with Creatures will kill
+     * them.
+     * 
+     * @param player  Player
+     * @param canKill  If sprite can kill player
+     */
     public void checkPlayerCollision(Player player,
         boolean canKill)
     {
@@ -426,9 +461,11 @@ public class GameManager extends GameCore {
 
 
     /**
-        Gives the player the speicifed power up and removes it
-        from the map.
-    */
+     * Gives the player the speicifed power up and removes it
+     * from the map.
+     * 
+     * @param powerUp Power up
+     */
     public void acquirePowerUp(PowerUp powerUp) {
         // remove it from the map
         map.removeSprite(powerUp);
