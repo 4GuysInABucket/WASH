@@ -11,10 +11,10 @@ import com.brackeen.javagamebook.tilegame.sprites.*;
 
 
 /**
-    The ResourceManager class loads and manages tile Images and
-    "host" Sprites used in the game. Game Sprites are cloned from
-    "host" Sprites.
-*/
+ * The ResourceManager class loads and manages tile Images and
+ * "host" Sprites used in the game. Game Sprites are cloned from
+ * "host" Sprites.
+ */
 public class ResourceManager {
 
     private ArrayList tiles;
@@ -30,9 +30,9 @@ public class ResourceManager {
     private Sprite flySprite;
 
     /**
-        Creates a new ResourceManager with the specified
-        GraphicsConfiguration.
-    */
+     * Creates a new ResourceManager with the specified
+     * GraphicsConfiguration.
+     */
     public ResourceManager(GraphicsConfiguration gc) {
         this.gc = gc;
         loadTileImages();
@@ -42,23 +42,46 @@ public class ResourceManager {
 
 
     /**
-        Gets an image from the images/ directory.
-    */
+     * Gets an image from the images/ directory.
+     * 
+     * @param name Image Name
+     * @return Image
+     */
     public Image loadImage(String name) {
         String filename = "images/" + name;
         return new ImageIcon(filename).getImage();
     }
-
+    
+    /**
+     * Obtain mirror image
+     * 
+     * @param image image to be mirror
+     * @return Image
+     */
 
     public Image getMirrorImage(Image image) {
         return getScaledImage(image, -1, 1);
     }
 
+    /**
+     * Obtain Flipped image
+     * 
+     * @param image
+     * @return 
+     */
 
     public Image getFlippedImage(Image image) {
         return getScaledImage(image, 1, -1);
     }
 
+    /**
+     * Transform the Image
+     * 
+     * @param image
+     * @param x
+     * @param y
+     * @return Image
+     */
 
     private Image getScaledImage(Image image, float x, float y) {
 
@@ -83,7 +106,12 @@ public class ResourceManager {
         return newImage;
     }
 
-
+    /**
+     * Load Next Map
+     * 
+     * @return  TileMap
+     */
+    
     public TileMap loadNextMap() {
         TileMap map = null;
         while (map == null) {
@@ -105,6 +133,11 @@ public class ResourceManager {
         return map;
     }
 
+    /**
+     * Reload Map
+     * 
+     * @return  Tile Map
+     */
 
     public TileMap reloadMap() {
         try {
@@ -117,6 +150,13 @@ public class ResourceManager {
         }
     }
 
+    /**
+     * Load Map
+     * 
+     * @param filename
+     * @return TileMap
+     * @throws IOException 
+     */
 
     private TileMap loadMap(String filename)
         throws IOException
@@ -185,6 +225,14 @@ public class ResourceManager {
         return newMap;
     }
 
+    /**
+     * Add Sprite
+     * 
+     * @param map
+     * @param hostSprite
+     * @param tileX
+     * @param tileY 
+     */
 
     private void addSprite(TileMap map,
         Sprite hostSprite, int tileX, int tileY)
@@ -214,6 +262,9 @@ public class ResourceManager {
     // code for loading sprites and images
     // -----------------------------------------------------------
 
+    /**
+     * Load Tile Images
+     */
 
     public void loadTileImages() {
         // keep looking for tile A,B,C, etc. this makes it
@@ -231,6 +282,9 @@ public class ResourceManager {
         }
     }
 
+    /**
+     * Load Creature Sprites
+     */
 
     public void loadCreatureSprites() {
 
@@ -282,6 +336,14 @@ public class ResourceManager {
             grubAnim[2], grubAnim[3]);
     }
 
+    /**
+     * Create Player Animations
+     * 
+     * @param player1
+     * @param player2
+     * @param player3
+     * @return  Animation
+     */
 
     private Animation createPlayerAnim(Image player1,
         Image player2, Image player3)
@@ -296,6 +358,14 @@ public class ResourceManager {
         return anim;
     }
 
+    /**
+     * Create Fly Animation
+     * 
+     * @param img1
+     * @param img2
+     * @param img3
+     * @return  Animation
+     */
 
     private Animation createFlyAnim(Image img1, Image img2,
         Image img3)
@@ -308,6 +378,13 @@ public class ResourceManager {
         return anim;
     }
 
+    /**
+     * Create Grub Animation
+     * 
+     * @param img1
+     * @param img2
+     * @return  Animation
+     */
 
     private Animation createGrubAnim(Image img1, Image img2) {
         Animation anim = new Animation();
@@ -316,6 +393,9 @@ public class ResourceManager {
         return anim;
     }
 
+    /**
+     * Load PowerUp Sprites
+     */
 
     private void loadPowerUpSprites() {
         // create "goal" sprite
