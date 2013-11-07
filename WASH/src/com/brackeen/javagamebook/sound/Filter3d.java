@@ -3,14 +3,14 @@ package com.brackeen.javagamebook.sound;
 import com.brackeen.javagamebook.graphics.Sprite;
 
 /**
-    The Filter3d class is a SoundFilter that creates a 3d sound
-    effect. The sound is filtered so that it is quiter the farther
-    away the sound source is from the listener.
-    <p>Possible ideas to extend this class:
-    <ul><li>pan the sound to the left and right speakers
-    </ul>
-    @see FilteredSoundStream
-*/
+ * The Filter3d class is a SoundFilter that creates a 3d sound
+ * effect. The sound is filtered so that it is quiter the farther
+ * away the sound source is from the listener.
+ * <p>Possible ideas to extend this class:
+ * <ul><li>pan the sound to the left and right speakers
+ * </ul>
+ * @see FilteredSoundStream
+ */
 public class Filter3d extends SoundFilter {
 
     // number of samples to shift when changing the volume.
@@ -22,12 +22,13 @@ public class Filter3d extends SoundFilter {
     private float lastVolume;
 
     /**
-        Creates a new Filter3d object with the specified source
-        and listener Sprites. The Sprite's position can be
-        changed while this filter is running.
-        <p> The maxDistance parameter is the maximum distance
-        that the sound can be heard.
-    */
+     * Creates a new Filter3d object with the specified source
+     * and listener Sprites. The Sprite's position can be
+     * changed while this filter is running.
+     * @param source  the specified source
+     * @param listener  the specified listener Sprites
+     * @param maxDistance  the maximum distance that the sound can be heard
+     */
     public Filter3d(Sprite source, Sprite listener,
         int maxDistance)
     {
@@ -39,9 +40,12 @@ public class Filter3d extends SoundFilter {
 
 
     /**
-        Filters the sound so that it gets more quiet with
-        distance.
-    */
+     * Filters the sound so that it gets more quiet with
+     * distance.
+     * @param samples  the sound samples
+     * @param offset  where the sound samples begin
+     * @param length  the amount of sound samples
+     */
     public void filter(byte[] samples, int offset, int length) {
 
         if (source == null || listener == null) {
