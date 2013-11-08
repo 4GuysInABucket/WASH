@@ -4,10 +4,10 @@ import java.lang.reflect.Constructor;
 import com.brackeen.javagamebook.graphics.*;
 
 /**
-    A Creature is a Sprite that is affected by gravity and can
-    die. It has four Animations: moving left, moving right,
-    dying on the left, and dying on the right.
-*/
+ *  A Creature is a Sprite that is affected by gravity and can
+ *  die. It has four Animations: moving left, moving right,
+ *  dying on the left, and dying on the right.
+ */
 public abstract class Creature extends Sprite {
 
     /**
@@ -27,8 +27,12 @@ public abstract class Creature extends Sprite {
     private long stateTime;
 
     /**
-        Creates a new Creature with the specified Animations.
-    */
+     * Creates a new Creature with the specified Animations.
+     * @param left
+     * @param right
+     * @param deadLeft
+     * @param deadRight 
+     */
     public Creature(Animation left, Animation right,
         Animation deadLeft, Animation deadRight)
     {
@@ -40,7 +44,10 @@ public abstract class Creature extends Sprite {
         state = STATE_NORMAL;
     }
 
-
+    /**
+     * Clone Creature
+     * @return Object
+     */
     public Object clone() {
         // use reflection to create the correct subclass
         Constructor constructor = getClass().getConstructors()[0];
@@ -61,17 +68,18 @@ public abstract class Creature extends Sprite {
 
 
     /**
-        Gets the maximum speed of this Creature.
-    */
+     * Gets the maximum speed of this Creature.
+     * @return float
+     */
     public float getMaxSpeed() {
         return 0;
     }
 
 
     /**
-        Wakes up the creature when the Creature first appears
-        on screen. Normally, the creature starts moving left.
-    */
+     * Wakes up the creature when the Creature first appears
+     * on screen. Normally, the creature starts moving left.
+     */
     public void wakeUp() {
         if (getState() == STATE_NORMAL && getVelocityX() == 0) {
             setVelocityX(-getMaxSpeed());
@@ -80,18 +88,20 @@ public abstract class Creature extends Sprite {
 
 
     /**
-        Gets the state of this Creature. The state is either
-        STATE_NORMAL, STATE_DYING, or STATE_DEAD.
-    */
+     * Gets the state of this Creature. The state is either
+     * STATE_NORMAL, STATE_DYING, or STATE_DEAD.
+     * @return 
+     */
     public int getState() {
         return state;
     }
 
 
     /**
-        Sets the state of this Creature to STATE_NORMAL,
-        STATE_DYING, or STATE_DEAD.
-    */
+     * Sets the state of this Creature to STATE_NORMAL,
+     * STATE_DYING, or STATE_DEAD.
+     * @param state 
+     */
     public void setState(int state) {
         if (this.state != state) {
             this.state = state;
@@ -105,42 +115,45 @@ public abstract class Creature extends Sprite {
 
 
     /**
-        Checks if this creature is alive.
-    */
+     * Checks if this creature is alive.
+     * @return boolean
+     */
     public boolean isAlive() {
         return (state == STATE_NORMAL);
     }
 
 
     /**
-        Checks if this creature is flying.
-    */
+     * Checks if this creature is flying.
+     * @return boolean
+     */
     public boolean isFlying() {
         return false;
     }
 
 
     /**
-        Called before update() if the creature collided with a
-        tile horizontally.
-    */
+     * Called before update() if the creature collided with a
+     * tile horizontally.
+     */
     public void collideHorizontal() {
         setVelocityX(-getVelocityX());
     }
 
 
     /**
-        Called before update() if the creature collided with a
-        tile vertically.
-    */
+     * Called before update() if the creature collided with a
+     * tile vertically.
+     */
     public void collideVertical() {
         setVelocityY(0);
     }
 
 
     /**
-        Updates the animaton for this creature.
-    */
+     * Updates the animaton for this creature.
+     * @param elapsedTime 
+     */
     public void update(long elapsedTime) {
         // select the correct Animation
         Animation newAnim = anim;

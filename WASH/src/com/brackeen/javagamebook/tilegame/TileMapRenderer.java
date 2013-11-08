@@ -7,19 +7,19 @@ import com.brackeen.javagamebook.graphics.Sprite;
 import com.brackeen.javagamebook.tilegame.sprites.Creature;
 
 /**
-    The TileMapRenderer class draws a TileMap on the screen.
-    It draws all tiles, sprites, and an optional background image
-    centered around the position of the player.
-
-    <p>If the width of background image is smaller the width of
-    the tile map, the background image will appear to move
-    slowly, creating a parallax background effect.
-
-    <p>Also, three static methods are provided to convert pixels
-    to tile positions, and vice-versa.
-
-    <p>This TileMapRender uses a tile size of 64.
-*/
+ * The TileMapRenderer class draws a TileMap on the screen.
+ * It draws all tiles, sprites, and an optional background image
+ * centered around the position of the player.
+ *
+ * <p>If the width of background image is smaller the width of
+ * the tile map, the background image will appear to move
+ * slowly, creating a parallax background effect.
+ *
+ * <p>Also, three static methods are provided to convert pixels
+ * to tile positions, and vice-versa.
+ *
+ * <p>This TileMapRender uses a tile size of 64.
+ */
 public class TileMapRenderer {
 
     private static final int TILE_SIZE = 64;
@@ -30,16 +30,21 @@ public class TileMapRenderer {
     private Image background;
 
     /**
-        Converts a pixel position to a tile position.
-    */
+     * Converts a pixel position to a tile position.
+     * @param pixels
+     * @return int
+     */
+    
     public static int pixelsToTiles(float pixels) {
         return pixelsToTiles(Math.round(pixels));
     }
 
 
     /**
-        Converts a pixel position to a tile position.
-    */
+     * Converts a pixel position to a tile position.
+     * @param pixels
+     * @return int
+     */
     public static int pixelsToTiles(int pixels) {
         // use shifting to get correct values for negative pixels
         return pixels >> TILE_SIZE_BITS;
@@ -51,8 +56,11 @@ public class TileMapRenderer {
 
 
     /**
-        Converts a tile position to a pixel position.
-    */
+     * Converts a tile position to a pixel position.
+     * @param numTiles
+     * @return int
+     */
+    
     public static int tilesToPixels(int numTiles) {
         // no real reason to use shifting here.
         // it's slighty faster, but doesn't add up to much
@@ -65,16 +73,22 @@ public class TileMapRenderer {
 
 
     /**
-        Sets the background to draw.
-    */
+     * Sets the background to draw.
+     * @param background 
+     */
+    
     public void setBackground(Image background) {
         this.background = background;
     }
 
 
     /**
-        Draws the specified TileMap.
-    */
+     * Draws the specified TileMap.
+     * @param g
+     * @param map
+     * @param screenWidth
+     * @param screenHeight 
+     */
     public void draw(Graphics2D g, TileMap map,
         int screenWidth, int screenHeight)
     {

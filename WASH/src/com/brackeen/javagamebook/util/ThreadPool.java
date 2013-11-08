@@ -2,9 +2,9 @@ package com.brackeen.javagamebook.util;
 import java.util.LinkedList;
 
 /**
-    A thread pool is a group of a limited number of threads that
-    are used to execute tasks.
-*/
+ * A thread pool is a group of a limited number of threads that
+ * are used to execute tasks.
+ */
 public class ThreadPool extends ThreadGroup {
 
     private boolean isAlive;
@@ -13,9 +13,9 @@ public class ThreadPool extends ThreadGroup {
     private static int threadPoolID;
 
     /**
-        Creates a new ThreadPool.
-        @param numThreads The number of threads in the pool.
-    */
+     * Creates a new ThreadPool.
+     * @param numThreads The number of threads in the pool.
+     */
     public ThreadPool(int numThreads) {
         super("ThreadPool-" + (threadPoolID++));
         setDaemon(true);
@@ -30,13 +30,13 @@ public class ThreadPool extends ThreadGroup {
 
 
     /**
-        Requests a new task to run. This method returns
-        immediately, and the task executes on the next available
-        idle thread in this ThreadPool.
-        <p>Tasks start execution in the order they are received.
-        @param task The task to run. If null, no action is taken.
-        @throws IllegalStateException if this ThreadPool is
-        already closed.
+     * Requests a new task to run. This method returns
+     * immediately, and the task executes on the next available
+     * idle thread in this ThreadPool.
+     * <p>Tasks start execution in the order they are received.
+     * @param task The task to run. If null, no action is taken.
+     * @throws IllegalStateException if this ThreadPool is
+     * already closed.
     */
     public synchronized void runTask(Runnable task) {
         if (!isAlive) {
@@ -49,7 +49,12 @@ public class ThreadPool extends ThreadGroup {
 
     }
 
-
+    /**
+     * Runnable
+     * @return synchronized
+     * @throws InterruptedException 
+     */
+    
     protected synchronized Runnable getTask()
         throws InterruptedException
     {
@@ -64,11 +69,11 @@ public class ThreadPool extends ThreadGroup {
 
 
     /**
-        Closes this ThreadPool and returns immediately. All
-        threads are stopped, and any waiting tasks are not
-        executed. Once a ThreadPool is closed, no more tasks can
-        be run on this ThreadPool.
-    */
+     * Closes this ThreadPool and returns immediately. All
+     * threads are stopped, and any waiting tasks are not
+     * executed. Once a ThreadPool is closed, no more tasks can
+     * be run on this ThreadPool.
+     */
     public synchronized void close() {
         if (isAlive) {
             isAlive = false;
@@ -79,9 +84,9 @@ public class ThreadPool extends ThreadGroup {
 
 
     /**
-        Closes this ThreadPool and waits for all running threads
-        to finish. Any waiting tasks are executed.
-    */
+     * Closes this ThreadPool and waits for all running threads
+     * to finish. Any waiting tasks are executed.
+     */
     public void join() {
         // notify all waiting threads that this ThreadPool is no
         // longer alive
@@ -104,29 +109,29 @@ public class ThreadPool extends ThreadGroup {
 
 
     /**
-        Signals that a PooledThread has started. This method
-        does nothing by default; subclasses should override to do
-        any thread-specific startup tasks.
-    */
+     * Signals that a PooledThread has started. This method
+     * does nothing by default; subclasses should override to do
+     * any thread-specific startup tasks.
+     */
     protected void threadStarted() {
         // do nothing
     }
 
 
     /**
-        Signals that a PooledThread has stopped. This method
-        does nothing by default; subclasses should override to do
-        any thread-specific cleanup tasks.
-    */
+     * Signals that a PooledThread has stopped. This method
+     * does nothing by default; subclasses should override to do
+     * any thread-specific cleanup tasks.
+     */
     protected void threadStopped() {
         // do nothing
     }
 
 
     /**
-        A PooledThread is a Thread in a ThreadPool group, designed
-        to run tasks (Runnables).
-    */
+     * A PooledThread is a Thread in a ThreadPool group, designed
+     * to run tasks (Runnables).
+     */
     private class PooledThread extends Thread {
 
 

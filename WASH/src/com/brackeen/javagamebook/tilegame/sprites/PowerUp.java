@@ -4,15 +4,22 @@ import java.lang.reflect.Constructor;
 import com.brackeen.javagamebook.graphics.*;
 
 /**
-    A PowerUp class is a Sprite that the player can pick up.
-*/
+ * A PowerUp class is a Sprite that the player can pick up.
+ */
 public abstract class PowerUp extends Sprite {
-
+    /**
+     * Constructor
+     * @param anim 
+     */
     public PowerUp(Animation anim) {
         super(anim);
     }
 
-
+    /**
+     * Clone Power Up
+     * @return Object
+     */
+    
     public Object clone() {
         // use reflection to create the correct subclass
         Constructor constructor = getClass().getConstructors()[0];
@@ -29,8 +36,8 @@ public abstract class PowerUp extends Sprite {
 
 
     /**
-        A Star PowerUp. Gives the player points.
-    */
+     * A Star PowerUp. Gives the player points.
+     */
     public static class Star extends PowerUp {
         public Star(Animation anim) {
             super(anim);
@@ -39,8 +46,8 @@ public abstract class PowerUp extends Sprite {
 
 
     /**
-        A Music PowerUp. Changes the game music.
-    */
+     * A Music PowerUp. Changes the game music.
+     */
     public static class Music extends PowerUp {
         public Music(Animation anim) {
             super(anim);
@@ -49,8 +56,8 @@ public abstract class PowerUp extends Sprite {
 
 
     /**
-        A Goal PowerUp. Advances to the next map.
-    */
+     * A Goal PowerUp. Advances to the next map.
+     */
     public static class Goal extends PowerUp {
         public Goal(Animation anim) {
             super(anim);

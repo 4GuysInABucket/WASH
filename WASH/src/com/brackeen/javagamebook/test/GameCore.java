@@ -1,3 +1,27 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2013 4 Guys in a Bucket.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package com.brackeen.javagamebook.test;
 
 import java.awt.*;
@@ -6,9 +30,9 @@ import javax.swing.ImageIcon;
 import com.brackeen.javagamebook.graphics.ScreenManager;
 
 /**
-    Simple abstract class used for testing. Subclasses should
-    implement the draw() method.
-*/
+ *Simple abstract class used for testing. Subclasses should
+ *implement the draw() method.
+ */
 public abstract class GameCore {
 
     protected static final int FONT_SIZE = 24;
@@ -30,16 +54,16 @@ public abstract class GameCore {
 
 
     /**
-        Signals the game loop that it's time to quit
-    */
+     *Signals the game loop that it's time to quit
+     */
     public void stop() {
         isRunning = false;
     }
 
 
     /**
-        Calls init() and gameLoop()
-    */
+     *Calls init() and gameLoop()
+     */
     public void run() {
         try {
             init();
@@ -53,12 +77,12 @@ public abstract class GameCore {
 
 
     /**
-        Exits the VM from a daemon thread. The daemon thread waits
-        2 seconds then calls System.exit(0). Since the VM should
-        exit when only daemon threads are running, this makes sure
-        System.exit(0) is only called if neccesary. It's neccesary
-        if the Java Sound system is running.
-    */
+     *Exits the VM from a daemon thread. The daemon thread waits
+     *2 seconds then calls System.exit(0). Since the VM should
+     *exit when only daemon threads are running, this makes sure
+     *System.exit(0) is only called if neccesary. It's neccesary
+     *if the Java Sound system is running.
+     */
     public void lazilyExit() {
         Thread thread = new Thread() {
             public void run() {
@@ -77,8 +101,8 @@ public abstract class GameCore {
 
 
     /**
-        Sets full screen mode and initiates and objects.
-    */
+     *Sets full screen mode and initiates and objects.
+     */
     public void init() {
         screen = new ScreenManager();
         DisplayMode displayMode =
@@ -100,8 +124,8 @@ public abstract class GameCore {
 
 
     /**
-        Runs through the game loop until stop() is called.
-    */
+     *Runs through the game loop until stop() is called.
+     */
     public void gameLoop() {
         long startTime = System.currentTimeMillis();
         long currTime = startTime;
@@ -130,17 +154,19 @@ public abstract class GameCore {
 
 
     /**
-        Updates the state of the game/animation based on the
-        amount of elapsed time that has passed.
-    */
+     *Updates the state of the game/animation based on the
+     *amount of elapsed time that has passed.
+     * @param elapsedTime  Elapsed time that has passed
+     */
     public void update(long elapsedTime) {
         // do nothing
     }
 
 
     /**
-        Draws to the screen. Subclasses must override this
-        method.
-    */
+     *Draws to the screen. Subclasses must override this
+     *method.
+     * @param g  Graphics2D
+     */
     public abstract void draw(Graphics2D g);
 }

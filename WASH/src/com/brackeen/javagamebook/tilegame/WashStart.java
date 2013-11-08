@@ -46,12 +46,12 @@ import com.brackeen.javagamebook.test.GameCore;
 import com.brackeen.javagamebook.tilegame.sprites.*;
 
 /**
- * GameManager manages all parts of the game.
+ * WashStart manages all parts of the game.
  */
-public class GameManager extends GameCore {
+public class WashStart extends GameCore {
 
     public static void main(String[] args) {
-        new GameManager().run();
+        new WashStart().run();
     }
 
     // uncompressed, 44100Hz, 16-bit, mono, signed, little-endian
@@ -114,7 +114,7 @@ public class GameManager extends GameCore {
 
 
     /**
-     * Closes any resources used by the GameManager.
+     * Closes any resources used by the WashStart.
      */
     public void stop() {
         super.stop();
