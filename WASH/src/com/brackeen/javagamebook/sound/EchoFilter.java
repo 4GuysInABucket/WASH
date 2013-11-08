@@ -1,9 +1,9 @@
 package com.brackeen.javagamebook.sound;
 
 /**
-    The EchoFilter class is a SoundFilter that emulates an echo.
-    @see FilteredSoundStream
-*/
+ * The EchoFilter class is a SoundFilter that emulates an echo.
+ * @see FilteredSoundStream
+ */
 public class EchoFilter extends SoundFilter {
 
     private short[] delayBuffer;
@@ -11,15 +11,17 @@ public class EchoFilter extends SoundFilter {
     private float decay;
 
     /**
-        Creates an EchoFilter with the specified number of delay
-        samples and the specified decay rate.
-        <p>The number of delay samples specifies how long before
-        the echo is initially heard. For a 1 second echo with
-        mono, 44100Hz sound, use 44100 delay samples.
-        <p>The decay value is how much the echo has decayed from
-        the source. A decay value of .5 means the echo heard is
-        half as loud as the source.
-    */
+     * Creates an EchoFilter with the specified number of delay
+     * samples and the specified decay rate.
+     * <p>The number of delay samples specifies how long before
+     * the echo is initially heard. For a 1 second echo with
+     * mono, 44100Hz sound, use 44100 delay samples.
+     * <p>The decay value is how much the echo has decayed from
+     * the source. A decay value of .5 means the echo heard is
+     * half as loud as the source.
+     * @param numDelaySamples  the number of delay sample
+     * @param decay  the specified decay rate
+     */
     public EchoFilter(int numDelaySamples, float decay) {
         delayBuffer = new short[numDelaySamples];
         this.decay = decay;
@@ -27,11 +29,12 @@ public class EchoFilter extends SoundFilter {
 
 
     /**
-        Gets the remaining size, in bytes, of samples that this
-        filter can echo after the sound is done playing.
-        Ensures that the sound will have decayed to below 1%
-        of maximum volume (amplitude).
-    */
+     * Gets the remaining size, in bytes, of samples that this
+     * filter can echo after the sound is done playing.
+     * Ensures that the sound will have decayed to below 1%
+     * of maximum volume (amplitude).
+     * @return the remaining size of samples
+     */
     public int getRemainingSize() {
         float finalDecay = 0.01f;
         // derived from Math.pow(decay,x) <= finalDecay
@@ -44,8 +47,8 @@ public class EchoFilter extends SoundFilter {
 
 
     /**
-        Clears this EchoFilter's internal delay buffer.
-    */
+     * Clears this EchoFilter's internal delay buffer.
+     */
     public void reset() {
         for (int i=0; i<delayBuffer.length; i++) {
             delayBuffer[i] = 0;
@@ -55,11 +58,14 @@ public class EchoFilter extends SoundFilter {
 
 
     /**
-        Filters the sound samples to add an echo. The samples
-        played are added to the sound in the delay buffer
-        multipied by the decay rate. The result is then stored in
-        the delay buffer, so multiple echoes are heard.
-    */
+     * Filters the sound samples to add an echo. The samples
+     * played are added to the sound in the delay buffer
+     * multiplied by the decay rate. The result is then stored in
+     * the delay buffer, so multiple echoes are heard.
+     * @param samples  the sound samples
+     * @param offset  where the sound samples begin
+     * @param length  the amount of sound samples
+     */
     public void filter(byte[] samples, int offset, int length) {
 
         for (int i=offset; i<offset+length; i+=2) {

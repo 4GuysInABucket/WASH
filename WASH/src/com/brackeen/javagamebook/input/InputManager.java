@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 
 /**
-    The InputManager manages input of key and mouse events.
-    Events are mapped to GameActions.
+ * The InputManager manages input of key and mouse events.
+ * Events are mapped to GameActions.
 */
 public class InputManager implements KeyListener, MouseListener,
     MouseMotionListener, MouseWheelListener
 {
     /**
-        An invisible cursor.
-    */
+     * An invisible cursor.
+     */
     public static final Cursor INVISIBLE_CURSOR =
         Toolkit.getDefaultToolkit().createCustomCursor(
             Toolkit.getDefaultToolkit().getImage(""),
@@ -52,9 +52,10 @@ public class InputManager implements KeyListener, MouseListener,
     private boolean isRecentering;
 
     /**
-        Creates a new InputManager that listens to input from the
-        specified component.
-    */
+     * Creates a new InputManager that listens to input from the
+     * specified component.
+     * @param comp  Component received to create the InputManager
+     */
     public InputManager(Component comp) {
         this.comp = comp;
         mouseLocation = new Point();
@@ -73,20 +74,22 @@ public class InputManager implements KeyListener, MouseListener,
 
 
     /**
-        Sets the cursor on this InputManager's input component.
-    */
+     * Sets the cursor on this InputManager's input component.
+     * @param cursor  the cursor of the mouse
+     */
     public void setCursor(Cursor cursor) {
         comp.setCursor(cursor);
     }
 
 
     /**
-        Sets whether realtive mouse mode is on or not. For
-        relative mouse mode, the mouse is "locked" in the center
-        of the screen, and only the changed in mouse movement
-        is measured. In normal mode, the mouse is free to move
-        about the screen.
-    */
+     * Sets whether relative mouse mode is on or not. For
+     * relative mouse mode, the mouse is "locked" in the center
+     * of the screen, and only the changed in mouse movement
+     * is measured. In normal mode, the mouse is free to move
+     * about the screen.
+     * @param mode  receives the mode of the mouse
+     */
     public void setRelativeMouseMode(boolean mode) {
         if (mode == isRelativeMouseMode()) {
             return;
@@ -109,31 +112,36 @@ public class InputManager implements KeyListener, MouseListener,
 
 
     /**
-        Returns whether or not relative mouse mode is on.
-    */
+     * Returns whether or not relative mouse mode is on.
+     * @return true if the mouse mode is relative, or false if it isn't
+     */
     public boolean isRelativeMouseMode() {
         return (robot != null);
     }
 
 
     /**
-        Maps a GameAction to a specific key. The key codes are
-        defined in java.awt.KeyEvent. If the key already has
-        a GameAction mapped to it, the new GameAction overwrites
-        it.
-    */
+     * Maps a GameAction to a specific key. The key codes are
+     * defined in java.awt.KeyEvent. If the key already has
+     * a GameAction mapped to it, the new GameAction overwrites
+     * it.
+     * @param gameAction  the current GameAction
+     * @param keyCode  the current key code
+     */
     public void mapToKey(GameAction gameAction, int keyCode) {
         keyActions[keyCode] = gameAction;
     }
 
 
     /**
-        Maps a GameAction to a specific mouse action. The mouse
-        codes are defined herer in InputManager (MOUSE_MOVE_LEFT,
-        MOUSE_BUTTON_1, etc). If the mouse action already has
-        a GameAction mapped to it, the new GameAction overwrites
-        it.
-    */
+     * Maps a GameAction to a specific mouse action. The mouse
+     * codes are defined herer in InputManager (MOUSE_MOVE_LEFT,
+     * MOUSE_BUTTON_1, etc). If the mouse action already has
+     * a GameAction mapped to it, the new GameAction overwrites
+     * it.
+     * @param gameAction  the current GameAction
+     * @param mouseCode  the current mouse code
+     */
     public void mapToMouse(GameAction gameAction,
         int mouseCode)
     {
@@ -142,9 +150,10 @@ public class InputManager implements KeyListener, MouseListener,
 
 
     /**
-        Clears all mapped keys and mouse actions to this
-        GameAction.
-    */
+     * Clears all mapped keys and mouse actions to this
+     * GameAction.
+     * @param gameAction  the current GameAction
+     */
     public void clearMap(GameAction gameAction) {
         for (int i=0; i<keyActions.length; i++) {
             if (keyActions[i] == gameAction) {
@@ -163,9 +172,11 @@ public class InputManager implements KeyListener, MouseListener,
 
 
     /**
-        Gets a List of names of the keys and mouse actions mapped
-        to this GameAction. Each entry in the List is a String.
-    */
+     * Gets a List of names of the keys and mouse actions mapped
+     * to this GameAction. Each entry in the List is a String.
+     * @param gameCode  the current GameAction
+     * @return the list of the keys and mouse actions
+     */
     public List getMaps(GameAction gameCode) {
         ArrayList list = new ArrayList();
 
@@ -185,9 +196,9 @@ public class InputManager implements KeyListener, MouseListener,
 
 
     /**
-        Resets all GameActions so they appear like they haven't
-        been pressed.
-    */
+     * Resets all GameActions so they appear like they haven't
+     * been pressed.
+     */
     public void resetAllGameActions() {
         for (int i=0; i<keyActions.length; i++) {
             if (keyActions[i] != null) {
@@ -204,16 +215,20 @@ public class InputManager implements KeyListener, MouseListener,
 
 
     /**
-        Gets the name of a key code.
-    */
+     * Gets the name of a key code.
+     * @param keyCode  the number of key code
+     * @return the string of the key code
+     */
     public static String getKeyName(int keyCode) {
         return KeyEvent.getKeyText(keyCode);
     }
 
 
     /**
-        Gets the name of a mouse code.
-    */
+     * Gets the name of a mouse code.
+     * @param mouseCode  the number of the mouse code
+     * @return the string of the mouse code
+     */
     public static String getMouseName(int mouseCode) {
         switch (mouseCode) {
             case MOUSE_MOVE_LEFT: return "Mouse Left";
@@ -231,27 +246,29 @@ public class InputManager implements KeyListener, MouseListener,
 
 
     /**
-        Gets the x position of the mouse.
-    */
+     * Gets the x position of the mouse.
+     * @return position of the mouse in x
+     */
     public int getMouseX() {
         return mouseLocation.x;
     }
 
 
     /**
-        Gets the y position of the mouse.
-    */
+     * Gets the y position of the mouse.
+     * @return position of the mouse in y
+     */
     public int getMouseY() {
         return mouseLocation.y;
     }
 
 
     /**
-        Uses the Robot class to try to postion the mouse in the
-        center of the screen.
-        <p>Note that use of the Robot class may not be available
-        on all platforms.
-    */
+     * Uses the Robot class to try to position the mouse in the
+     * center of the screen.
+     * <p>Note that use of the Robot class may not be available
+     * on all platforms.
+     */
     private synchronized void recenterMouse() {
         if (robot != null && comp.isShowing()) {
             centerLocation.x = comp.getWidth() / 2;
@@ -263,7 +280,11 @@ public class InputManager implements KeyListener, MouseListener,
         }
     }
 
-
+    /**
+     * Gets the action of the key.
+     * @param e  the event generated by the key
+     * @return the code of the event
+     */
     private GameAction getKeyAction(KeyEvent e) {
         int keyCode = e.getKeyCode();
         if (keyCode < keyActions.length) {
@@ -275,9 +296,10 @@ public class InputManager implements KeyListener, MouseListener,
     }
 
     /**
-        Gets the mouse code for the button specified in this
-        MouseEvent.
-    */
+     * Gets the mouse code for the button specified in this MouseEvent.
+     * @param e  the event generated by the mouse
+     * @return the code of the event
+     */
     public static int getMouseButtonCode(MouseEvent e) {
          switch (e.getButton()) {
             case MouseEvent.BUTTON1:
@@ -291,7 +313,11 @@ public class InputManager implements KeyListener, MouseListener,
         }
     }
 
-
+    /**
+     * Gets the mouse action for the button specified in this MouseEvent.
+     * @param e  the event generated by the mouse
+     * @return the code of the event
+     */
     private GameAction getMouseButtonAction(MouseEvent e) {
         int mouseCode = getMouseButtonCode(e);
         if (mouseCode != -1) {
@@ -302,8 +328,11 @@ public class InputManager implements KeyListener, MouseListener,
         }
     }
 
-
-    // from the KeyListener interface
+    /**
+     * Manages the event generated when a key is pressed.
+     * From the KeyListener interface.
+     * @param e  the event generated by the pressed key
+     */
     public void keyPressed(KeyEvent e) {
         GameAction gameAction = getKeyAction(e);
         if (gameAction != null) {
@@ -313,8 +342,11 @@ public class InputManager implements KeyListener, MouseListener,
         e.consume();
     }
 
-
-    // from the KeyListener interface
+    /**
+     * Manages the event generated when a key is released.
+     * From the KeyListener interface.
+     * @param e  the event generated by the released key
+     */
     public void keyReleased(KeyEvent e) {
         GameAction gameAction = getKeyAction(e);
         if (gameAction != null) {
@@ -324,15 +356,21 @@ public class InputManager implements KeyListener, MouseListener,
         e.consume();
     }
 
-
-    // from the KeyListener interface
+    /**
+     * Manages the event generated when a key is typed.
+     * From the KeyListener interface.
+     * @param e  the event generated by the typed key
+     */
     public void keyTyped(KeyEvent e) {
         // make sure the key isn't processed for anything else
         e.consume();
     }
 
-
-    // from the MouseListener interface
+    /**
+     * Manages the event generated when the mouse is pressed.
+     * From the MouseListener interface.
+     * @param e  the event generated by the pressed mouse
+     */
     public void mousePressed(MouseEvent e) {
         GameAction gameAction = getMouseButtonAction(e);
         if (gameAction != null) {
@@ -340,8 +378,11 @@ public class InputManager implements KeyListener, MouseListener,
         }
     }
 
-
-    // from the MouseListener interface
+    /**
+     * Manages the event generated when the mouse is released.
+     * From the MouseListener interface.
+     * @param e  the event generated by the released mouse
+     */
     public void mouseReleased(MouseEvent e) {
         GameAction gameAction = getMouseButtonAction(e);
         if (gameAction != null) {
@@ -349,32 +390,47 @@ public class InputManager implements KeyListener, MouseListener,
         }
     }
 
-
-    // from the MouseListener interface
+    /**
+     * Manages the event generated when the mouse is clicked.
+     * From the MouseListener interface.
+     * @param e  the event generated by the clicked mouse
+     */
     public void mouseClicked(MouseEvent e) {
         // do nothing
     }
 
-
-    // from the MouseListener interface
+    /**
+     * Manages the event generated when the mouse is entered.
+     * From the MouseListener interface.
+     * @param e  the event generated by the entered mouse
+     */
     public void mouseEntered(MouseEvent e) {
         mouseMoved(e);
     }
 
-
-    // from the MouseListener interface
+    /**
+     * Manages the event generated when the mouse is pressed.
+     * From the MouseListener interface.
+     * @param e  the event generated by the pressed mouse
+     */
     public void mouseExited(MouseEvent e) {
         mouseMoved(e);
     }
 
-
-    // from the MouseMotionListener interface
+    /**
+     * Manages the event generated when the mouse is dragged.
+     * From the MouseMotionListener interface.
+     * @param e  the event generated by the dragged mouse
+     */
     public void mouseDragged(MouseEvent e) {
         mouseMoved(e);
     }
 
-
-    // from the MouseMotionListener interface
+    /**
+     * Manages the event generated when the mouse is moved.
+     * From the MouseMotionListener interface.
+     * @param e  the event generated by the moved mouse
+     */
     public synchronized void mouseMoved(MouseEvent e) {
         // this event is from re-centering the mouse - ignore it
         if (isRecentering &&
@@ -399,13 +455,22 @@ public class InputManager implements KeyListener, MouseListener,
 
     }
 
-
-    // from the MouseWheelListener interface
+    /**
+     * Manages the event generated when the mouse is wheel moved.
+     * From the MouseWheelListener interface.
+     * @param e  the event generated by the wheel moved mouse
+     */
     public void mouseWheelMoved(MouseWheelEvent e) {
         mouseHelper(MOUSE_WHEEL_UP, MOUSE_WHEEL_DOWN,
             e.getWheelRotation());
     }
 
+    /**
+     * Gets the list of mouseActions depending on the amount of codes.
+     * @param codeNeg  the negative code of the mouse
+     * @param codePos  the positive code of the mouse
+     * @param amount  the amount of codes
+     */
     private void mouseHelper(int codeNeg, int codePos,
         int amount)
     {

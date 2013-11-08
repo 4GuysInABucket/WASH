@@ -8,17 +8,17 @@ import com.brackeen.javagamebook.util.LoopingByteInputStream;
 
 
 /**
-    The SoundManager class manages sound playback. The
-    SoundManager is a ThreadPool, with each thread playing back
-    one sound at a time. This allows the SoundManager to
-    easily limit the number of simultaneous sounds being played.
-    <p>Possible ideas to extend this class:<ul>
-    <li>add a setMasterVolume() method, which uses Controls to
-        set the volume for each line.
-    <li>don't play a sound if more than, say, 500ms has passed
-        since the request to play
-    </ul>
-*/
+ * The SoundManager class manages sound playback. The
+ * SoundManager is a ThreadPool, with each thread playing back
+ * one sound at a time. This allows the SoundManager to
+ * easily limit the number of simultaneous sounds being played.
+ * <p>Possible ideas to extend this class:<ul>
+ * <li>add a setMasterVolume() method, which uses Controls to
+ *    set the volume for each line.
+ * <li>don't play a sound if more than, say, 500ms has passed
+ *    since the request to play
+ * </ul>
+ */
 public class SoundManager extends ThreadPool {
 
     private AudioFormat playbackFormat;
@@ -28,9 +28,10 @@ public class SoundManager extends ThreadPool {
     private boolean paused;
 
     /**
-        Creates a new SoundManager using the maximum number of
-        simultaneous sounds.
-    */
+     * Creates a new SoundManager using the maximum number of
+     * simultaneous sounds.
+     * @param playbackFormat 
+     */
     public SoundManager(AudioFormat playbackFormat) {
         this(playbackFormat,
             getMaxSimultaneousSounds(playbackFormat));
@@ -38,9 +39,11 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Creates a new SoundManager with the specified maximum
-        number of simultaneous sounds.
-    */
+     * Creates a new SoundManager with the specified maximum
+     * number of simultaneous sounds.
+     * @param playbackFormat
+     * @param maxSimultaneousSounds 
+     */
     public SoundManager(AudioFormat playbackFormat,
         int maxSimultaneousSounds)
     {
@@ -58,9 +61,11 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Gets the maximum number of simultaneous sounds with the
-        specified AudioFormat that the default mixer can play.
-    */
+     * Gets the maximum number of simultaneous sounds with the
+     * specified AudioFormat that the default mixer can play.
+     * @param playbackFormat
+     * @return 
+     */
     public static int getMaxSimultaneousSounds(
         AudioFormat playbackFormat)
     {
@@ -72,8 +77,8 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Does any clean up before closing.
-    */
+     * Does any clean up before closing.
+     */
     protected void cleanUp() {
         // signal to unpause
         setPaused(false);
@@ -85,13 +90,17 @@ public class SoundManager extends ThreadPool {
         }
     }
 
-
+    /**
+     * 
+     */
     public void close() {
         cleanUp();
         super.close();
     }
 
-
+    /**
+     * 
+     */
     public void join() {
         cleanUp();
         super.join();
@@ -99,8 +108,9 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Sets the paused state. Sounds may not pause immediately.
-    */
+     * Sets the paused state. Sounds may not pause immediately.
+     * @param paused 
+     */
     public void setPaused(boolean paused) {
         if (this.paused != paused) {
             synchronized (pausedLock) {
@@ -115,17 +125,20 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Returns the paused state.
-    */
+     * Returns the paused state.
+     * @return 
+     */
     public boolean isPaused() {
         return paused;
     }
 
 
     /**
-        Loads a Sound from the file system. Returns null if an
-        error occurs.
-    */
+     * Loads a Sound from the file system. Returns null if an
+     * error occurs.
+     * @param filename
+     * @return 
+     */
     public Sound getSound(String filename) {
         return getSound(getAudioInputStream(filename));
     }
