@@ -1,9 +1,9 @@
 /*
- * @author lalala
- * @author 
- * @author
- * @author
- * @version 
+ * @author Juan Lorenzo Gonzalez
+ * @author Hilce Estefanía Larsen Ruiz
+ * @author Martha Iliana García Hinojosa
+ * @author Carlos Enrique Alavez García
+ * @version alpha
  */
 
 /*
