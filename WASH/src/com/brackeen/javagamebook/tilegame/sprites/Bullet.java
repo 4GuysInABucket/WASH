@@ -25,7 +25,6 @@ package com.brackeen.javagamebook.tilegame.sprites;
 
 import java.awt.*;
 import com.brackeen.javagamebook.tilegame.WashStart;
-import com.brackeen.javagamebook.test.GameCore;
 
 /**
  *

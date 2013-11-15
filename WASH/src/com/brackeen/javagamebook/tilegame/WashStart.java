@@ -181,8 +181,8 @@ public class WashStart extends GameCore {
                     long elapsed = (System.nanoTime() - player.getBulletTimer())/1000000;
                     if(elapsed > player.getBulletDelay()){
                         bullets.add(new Bullet(0,
-                                player.getX()+(player.getWidth()/2),
-                                player.getY()-(player.getHeight()/2)));
+                                player.getX()+player.getWidth()/2,
+                                player.getY()-player.getHeight()/2));
                         player.setBulletTimer(System.nanoTime());
                     }
                 }
