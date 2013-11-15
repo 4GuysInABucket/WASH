@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.Iterator;
 
 import com.brackeen.javagamebook.graphics.Sprite;
+import static com.brackeen.javagamebook.tilegame.WashStart.bullets;
 import com.brackeen.javagamebook.tilegame.sprites.Creature;
 
 /**
@@ -26,6 +27,8 @@ public class TileMapRenderer {
     // the size in bits of the tile
     // Math.pow(2, TILE_SIZE_BITS) == TILE_SIZE
     private static final int TILE_SIZE_BITS = 6;
+    
+    public static int offsetX;
 
     private Image background;
 
@@ -97,7 +100,7 @@ public class TileMapRenderer {
 
         // get the scrolling position of the map
         // based on player's position
-        int offsetX = screenWidth / 2 -
+        offsetX = screenWidth / 2 -
             Math.round(player.getX()) - TILE_SIZE;
         offsetX = Math.min(offsetX, 0);
         offsetX = Math.max(offsetX, screenWidth - mapWidth);
