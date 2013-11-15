@@ -11,9 +11,9 @@
                                                                  
                                                      o      o    o
                        o o o        o o o       o     o      o 
-                      IIIIIII      IIIIIII       o     o         2
+                      IIIIIIIIIIIIIIIIIIII       o     o         2
                       o o o o o o                o        2
-                      IIIIIIIIIII               EBBBBBBBF
+                                                EBBBBBBBF
                            2                   EGAAAAAAAD
       1                                     2 EGAAAAAAAAD
 BBBBBBBF           EBBF         EBBBF        EGAAAAAAAAAD

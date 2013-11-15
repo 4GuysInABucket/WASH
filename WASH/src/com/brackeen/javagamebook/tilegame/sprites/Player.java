@@ -10,6 +10,10 @@ public class Player extends Creature {
     private static final float JUMP_SPEED = -.95f;
 
     private boolean onGround;
+    
+    private boolean firing;
+    private long bulletTimer;
+    private long bulletDelay;
 
     /**
      * Constructor
@@ -23,6 +27,9 @@ public class Player extends Creature {
         Animation deadLeft, Animation deadRight)
     {
         super(left, right, deadLeft, deadRight);
+        firing = false;
+        bulletTimer = System.nanoTime();
+        bulletDelay = 500;
     }
 
     /**
@@ -77,6 +84,45 @@ public class Player extends Creature {
             onGround = false;
             setVelocityY(JUMP_SPEED);
         }
+    }
+    
+    /**
+     * Sets bullet Timer 
+     * @param timer 
+     */
+    public void setBulletTimer(long timer){
+        this.bulletTimer = timer;
+    }
+    /**
+     * Get bullet Timer
+     * @return bullet timer
+     */
+    public long getBulletTimer(){
+        return this.bulletTimer;
+    }
+    
+    /**
+     * Get bullet Delay
+     * @return bullet timer
+     */
+    public long getBulletDelay(){
+        return this.bulletDelay;
+    }
+    
+    /**
+     * Is player firing?
+     * @return firing
+     */
+    public boolean isFiring(){
+        return this.firing;
+    }
+    
+    /**
+     * Makes the player fire 
+     * @param forceJump 
+     */
+    public void fire(boolean fire) {
+        this.firing = fire;
     }
 
     /**

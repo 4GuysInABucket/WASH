@@ -50,7 +50,7 @@ public abstract class GameCore {
     };
 
     private boolean isRunning;
-    protected ScreenManager screen;
+    public static ScreenManager screen;
 
 
     /**

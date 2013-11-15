@@ -32,6 +32,7 @@
 package com.brackeen.javagamebook.tilegame;
 
 import java.awt.*;
+import java.util.*;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
@@ -76,6 +77,8 @@ public class WashStart extends GameCore {
     private GameAction moveRight;
     private GameAction jump;
     private GameAction exit;
+    private GameAction fire;
+    public static ArrayList<Bullet> bullets;
 
     /**
      * Initializes Game and variables.
@@ -110,6 +113,8 @@ public class WashStart extends GameCore {
             midiPlayer.getSequence("sounds/music.midi");
         midiPlayer.play(sequence, true);
         toggleDrumPlayback();
+        
+        bullets = new ArrayList<Bullet>();
     }
 
 
@@ -133,6 +138,7 @@ public class WashStart extends GameCore {
             GameAction.DETECT_INITAL_PRESS_ONLY);
         exit = new GameAction("exit",
             GameAction.DETECT_INITAL_PRESS_ONLY);
+        fire = new GameAction("fire");
 
         inputManager = new InputManager(
             screen.getFullScreenWindow());
@@ -140,7 +146,8 @@ public class WashStart extends GameCore {
 
         inputManager.mapToKey(moveLeft, KeyEvent.VK_LEFT);
         inputManager.mapToKey(moveRight, KeyEvent.VK_RIGHT);
-        inputManager.mapToKey(jump, KeyEvent.VK_SPACE);
+        inputManager.mapToKey(jump, KeyEvent.VK_UP);
+        inputManager.mapToKey(fire, KeyEvent.VK_SPACE);
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
     }
 
@@ -168,6 +175,19 @@ public class WashStart extends GameCore {
                 player.jump(false);
             }
             player.setVelocityX(velocityX);
+            
+            if(fire.isPressed()){
+                if(player.isFiring()){
+                    long elapsed = (System.nanoTime() - player.getBulletTimer())/1000000;
+                    if(elapsed > player.getBulletDelay()){
+                        bullets.add(new Bullet(0,
+                                player.getX()+(player.getWidth()/2),
+                                player.getY()-(player.getHeight()/2)));
+                        player.setBulletTimer(System.nanoTime());
+                    }
+                }
+                player.fire(true);
+            }
         }
 
     }
@@ -180,6 +200,9 @@ public class WashStart extends GameCore {
     public void draw(Graphics2D g) {
         renderer.draw(g, map,
             screen.getWidth(), screen.getHeight());
+        for(int j = 0; j < bullets.size(); j++){
+            bullets.get(j).draw(g);
+        }
     }
 
 
@@ -347,6 +370,13 @@ public class WashStart extends GameCore {
             }
             // normal update
             sprite.update(elapsedTime);
+        }
+        for(int j = 0; j < bullets.size(); j++){
+            boolean remove = bullets.get(j).update();
+            if(remove){
+                bullets.remove(j);
+                j--;
+            } 
         }
     }
 
