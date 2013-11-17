@@ -24,7 +24,7 @@ public class Player extends Creature {
      */
     
     public Player(Animation left, Animation right,
-        Animation deadLeft, Animation deadRight)
+        Animation deadLeft, Animation deadRight, Animation standing)
     {
         super(left, right, deadLeft, deadRight);
         firing = false;

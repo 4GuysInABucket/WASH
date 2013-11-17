@@ -23,6 +23,7 @@ public abstract class Creature extends Sprite {
     private Animation right;
     private Animation deadLeft;
     private Animation deadRight;
+    private Animation standing;
     private int state;
     private long stateTime;
 
@@ -41,6 +42,26 @@ public abstract class Creature extends Sprite {
         this.right = right;
         this.deadLeft = deadLeft;
         this.deadRight = deadRight;
+        state = STATE_NORMAL;
+    }
+    
+    /**
+     * Creates a new Creature with the specified Animations.
+     * @param left
+     * @param right
+     * @param deadLeft
+     * @param deadRight 
+     * @param standing
+     */
+    public Creature(Animation left, Animation right,
+        Animation deadLeft, Animation deadRight, Animation standing)
+    {
+        super(right);
+        this.left = left;
+        this.right = right;
+        this.deadLeft = deadLeft;
+        this.deadRight = deadRight;
+        this.standing = standing;
         state = STATE_NORMAL;
     }
 
@@ -162,6 +183,8 @@ public abstract class Creature extends Sprite {
         }
         else if (getVelocityX() > 0) {
             newAnim = right;
+        }else if (getVelocityX() == 0){
+            newAnim = standing;
         }
         if (state == STATE_DYING && newAnim == left) {
             newAnim = deadLeft;

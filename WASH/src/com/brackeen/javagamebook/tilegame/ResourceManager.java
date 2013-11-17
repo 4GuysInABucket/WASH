@@ -289,17 +289,23 @@ public class ResourceManager {
     public void loadCreatureSprites() {
 
         Image[][] images = new Image[4][];
-
+        
         // load left-facing images
         images[0] = new Image[] {
             loadImage("player1.png"),
             loadImage("player2.png"),
             loadImage("player3.png"),
+            loadImage("player4.png"),
+            loadImage("player5.png"),
+            loadImage("player6.png"),
+            loadImage("player7.png"),
+            loadImage("player8.png"),
             loadImage("fly1.png"),
             loadImage("fly2.png"),
             loadImage("fly3.png"),
             loadImage("grub1.png"),
             loadImage("grub2.png"),
+            loadImage("player.png")
         };
 
         images[1] = new Image[images[0].length];
@@ -315,21 +321,25 @@ public class ResourceManager {
         }
 
         // create creature animations
-        Animation[] playerAnim = new Animation[4];
+        Animation[] playerAnim = new Animation[6];
         Animation[] flyAnim = new Animation[4];
         Animation[] grubAnim = new Animation[4];
         for (int i=0; i<4; i++) {
-            playerAnim[i] = createPlayerAnim(
-                images[i][0], images[i][1], images[i][2]);
+           playerAnim[i] = createPlayerAnim(
+                images[i][0], images[i][1], images[i][2], 
+                    images[i][3], images[i][4], images[i][5],
+                    images[i][6], images[i][7]);
             flyAnim[i] = createFlyAnim(
-                images[i][3], images[i][4], images[i][5]);
+                images[i][8], images[i][9], images[i][10]);
             grubAnim[i] = createGrubAnim(
-                images[i][6], images[i][7]);
+                images[i][11], images[i][12]);
         }
+        playerAnim[4] = createPlayerStanding(images[0][13]);
+        playerAnim[5] = createPlayerStanding(images[1][13]);
 
         // create creature sprites
         playerSprite = new Player(playerAnim[0], playerAnim[1],
-            playerAnim[2], playerAnim[3]);
+            playerAnim[2], playerAnim[3], playerAnim[4]);
         flySprite = new Fly(flyAnim[0], flyAnim[1],
             flyAnim[2], flyAnim[3]);
         grubSprite = new Grub(grubAnim[0], grubAnim[1],
@@ -346,15 +356,37 @@ public class ResourceManager {
      */
 
     private Animation createPlayerAnim(Image player1,
-        Image player2, Image player3)
+        Image player2, Image player3, Image player4,
+        Image player5, Image player6, Image player7,
+        Image player8)
     {
         Animation anim = new Animation();
-        anim.addFrame(player1, 250);
-        anim.addFrame(player2, 150);
         anim.addFrame(player1, 150);
         anim.addFrame(player2, 150);
-        anim.addFrame(player3, 200);
-        anim.addFrame(player2, 150);
+        anim.addFrame(player3, 150);
+        anim.addFrame(player4, 150);
+        anim.addFrame(player5, 150);
+        anim.addFrame(player6, 150);
+        anim.addFrame(player7, 150);
+        anim.addFrame(player8, 150);
+        
+        return anim;
+    }
+    
+    /**
+     * Create Player Animations
+     * 
+     * @param player1
+     * @param player2
+     * @param player3
+     * @return  Animation
+     */
+
+    private Animation createPlayerStanding(Image player1)
+    {
+        Animation anim = new Animation();
+        anim.addFrame(player1, 150);
+        
         return anim;
     }
 
