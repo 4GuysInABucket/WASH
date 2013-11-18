@@ -34,7 +34,7 @@ public class InputManager implements KeyListener, MouseListener,
     public static final int MOUSE_BUTTON_3 = 8;
 
     private static final int NUM_MOUSE_CODES = 9;
-
+    
     // key codes are defined in java.awt.KeyEvent.
     // most of the codes (except for some rare ones like
     // "alt graph") are less than 600.
