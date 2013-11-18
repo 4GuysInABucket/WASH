@@ -300,12 +300,20 @@ public class ResourceManager {
             loadImage("player6.png"),
             loadImage("player7.png"),
             loadImage("player8.png"),
+            loadImage("player9.png"),
+            loadImage("player10.png"),            
             loadImage("fly1.png"),
             loadImage("fly2.png"),
             loadImage("fly3.png"),
             loadImage("grub1.png"),
             loadImage("grub2.png"),
-            loadImage("player.png")
+            loadImage("player.png"),
+            loadImage("salto1.png"),
+            loadImage("salto2.png"),
+            loadImage("salto3.png"),
+            loadImage("salto4.png"),
+            loadImage("salto5.png"),
+            loadImage("salto6.png"),
         };
 
         images[1] = new Image[images[0].length];
@@ -321,33 +329,39 @@ public class ResourceManager {
         }
 
         // create creature animations
-        Animation[] playerAnim = new Animation[6];
-        Animation[] flyAnim = new Animation[6];
-        Animation[] grubAnim = new Animation[6];
+        Animation[] playerAnim = new Animation[8];
+        Animation[] flyAnim = new Animation[8];
+        Animation[] grubAnim = new Animation[8];
         for (int i=0; i<4; i++) {
            playerAnim[i] = createPlayerAnim(
                 images[i][0], images[i][1], images[i][2], 
                     images[i][3], images[i][4], images[i][5],
-                    images[i][6], images[i][7]);
+                    images[i][6], images[i][7], images[i][8],
+                    images[i][9]);
             flyAnim[i] = createFlyAnim(
-                images[i][8], images[i][9], images[i][10]);
+                images[i][10], images[i][11], images[i][12]);
             grubAnim[i] = createGrubAnim(
-                images[i][11], images[i][12]);
+                images[i][13], images[i][14]);
         }
-        playerAnim[4] = createPlayerStanding(images[0][13]);
-        playerAnim[5] = createPlayerStanding(images[1][13]);
-        flyAnim[4] = createPlayerStanding(images[0][8]);
-        flyAnim[5] = createPlayerStanding(images[1][8]);
-        grubAnim[4] = createPlayerStanding(images[0][11]);
-        grubAnim[5] = createPlayerStanding(images[1][11]);
+        playerAnim[4] = createPlayerStanding(images[0][15]);//standing left
+        playerAnim[5] = createPlayerStanding(images[1][15]);//standing right
+        playerAnim[6] = createPlayerJumping(images[0][16], images[0][17], 
+                images[0][18], images[0][19], images[0][20], images[0][21]);
+        playerAnim[7] = createPlayerJumping(images[1][16], images[1][17], 
+                images[1][18], images[1][19], images[1][20], images[1][21]);
+        
+        flyAnim[4] = createPlayerStanding(images[0][10]);
+        flyAnim[5] = createPlayerStanding(images[1][10]);
+        grubAnim[4] = createPlayerStanding(images[0][13]);
+        grubAnim[5] = createPlayerStanding(images[1][13]);
 
         // create creature sprites
         playerSprite = new Player(playerAnim[0], playerAnim[1],
-            playerAnim[2], playerAnim[3], playerAnim[4], playerAnim[5]);
+            playerAnim[2], playerAnim[3], playerAnim[4], playerAnim[5], playerAnim[6], playerAnim[7]);
         flySprite = new Fly(flyAnim[0], flyAnim[1],
-            flyAnim[2], flyAnim[3], flyAnim[4], flyAnim[5]);
+            flyAnim[2], flyAnim[3], flyAnim[4], flyAnim[5], flyAnim[4], flyAnim[5]);
         grubSprite = new Grub(grubAnim[0], grubAnim[1],
-            grubAnim[2], grubAnim[3], grubAnim[4], flyAnim[5]);
+            grubAnim[2], grubAnim[3], grubAnim[4], grubAnim[5], grubAnim[4], grubAnim[5]);
     }
 
     /**
@@ -362,17 +376,43 @@ public class ResourceManager {
     private Animation createPlayerAnim(Image player1,
         Image player2, Image player3, Image player4,
         Image player5, Image player6, Image player7,
-        Image player8)
+        Image player8, Image player9, Image player10)
     {
         Animation anim = new Animation();
-        anim.addFrame(player1, 150);
-        anim.addFrame(player2, 150);
-        anim.addFrame(player3, 150);
-        anim.addFrame(player4, 150);
-        anim.addFrame(player5, 150);
-        anim.addFrame(player6, 150);
-        anim.addFrame(player7, 150);
-        anim.addFrame(player8, 150);
+        anim.addFrame(player1, 80);
+        anim.addFrame(player2, 80);
+        anim.addFrame(player3, 80);
+        anim.addFrame(player4, 80);
+        anim.addFrame(player5, 80);
+        anim.addFrame(player6, 80);
+        anim.addFrame(player7, 80);
+        anim.addFrame(player8, 80);
+        anim.addFrame(player9, 80);
+        anim.addFrame(player10, 80);
+        
+        return anim;
+    }
+    
+    /**
+     * Create Player Animations
+     * 
+     * @param player1
+     * @param player2
+     * @param player3
+     * @return  Animation
+     */
+
+    private Animation createPlayerJumping(Image player1,
+        Image player2, Image player3, Image player4,
+        Image player5, Image player6)
+    {
+        Animation anim = new Animation();
+        anim.addFrame(player1, 200);
+        anim.addFrame(player2, 200);
+        anim.addFrame(player3, 200);
+        anim.addFrame(player4, 200);
+        anim.addFrame(player5, 200);
+        anim.addFrame(player6, 200);
         
         return anim;
     }
@@ -393,7 +433,7 @@ public class ResourceManager {
         
         return anim;
     }
-
+    
     /**
      * Create Fly Animation
      * 

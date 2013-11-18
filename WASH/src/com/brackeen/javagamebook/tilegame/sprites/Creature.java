@@ -25,6 +25,8 @@ public abstract class Creature extends Sprite {
     private Animation deadRight;
     private Animation standingLeft;
     private Animation standingRight;
+    private Animation jumpingLeft;
+    private Animation jumpingRight;
     private int standing;
     private int state;
     private long stateTime;
@@ -57,9 +59,12 @@ public abstract class Creature extends Sprite {
      * @param deadRight 
      * @param standingLeft
      * @param standingRight
+     * @param jumpingLeft
+     * @param jumpingRight
      */
     public Creature(Animation left, Animation right,
-        Animation deadLeft, Animation deadRight, Animation standingLeft, Animation standingRight)
+        Animation deadLeft, Animation deadRight, Animation standingLeft, Animation standingRight,
+        Animation jumpingLeft, Animation jumpingRight)
     {
         super(right);
         this.left = left;
@@ -68,6 +73,8 @@ public abstract class Creature extends Sprite {
         this.deadRight = deadRight;
         this.standingLeft = standingLeft;
         this.standingRight = standingRight;
+        this.jumpingLeft = jumpingLeft;
+        this.jumpingRight = jumpingRight;
         state = STATE_NORMAL;
         standing = 1;
     }
@@ -86,7 +93,9 @@ public abstract class Creature extends Sprite {
                 (Animation)deadLeft.clone(),
                 (Animation)deadRight.clone(),
                 (Animation)standingLeft.clone(),
-                (Animation)standingRight.clone()
+                (Animation)standingRight.clone(),
+                (Animation)jumpingLeft.clone(),
+                (Animation)jumpingRight.clone()
             });
         }
         catch (Exception ex) {
@@ -187,11 +196,14 @@ public abstract class Creature extends Sprite {
     public void update(long elapsedTime) {
         // select the correct Animation
         Animation newAnim = anim;
-        if (getVelocityX() < 0) {
+        if(Player.onGround == false && standing == 0){
+            newAnim = jumpingLeft;
+        }else if(Player.onGround == false && standing == 1){
+            newAnim = jumpingRight;
+        }else if (getVelocityX() < 0) {
             newAnim = left;
             standing = 0;
-        }
-        else if (getVelocityX() > 0) {
+        }else if (getVelocityX() > 0) {
             newAnim = right;
             standing = 1;
         }else if (getVelocityX() == 0 && standing == 0){
