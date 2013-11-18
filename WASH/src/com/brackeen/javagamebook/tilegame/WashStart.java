@@ -44,6 +44,7 @@ import com.brackeen.javagamebook.graphics.*;
 import com.brackeen.javagamebook.sound.*;
 import com.brackeen.javagamebook.input.*;
 import com.brackeen.javagamebook.test.GameCore;
+import static com.brackeen.javagamebook.test.GameCore.screen;
 import com.brackeen.javagamebook.tilegame.sprites.*;
 
 /**
@@ -211,14 +212,20 @@ public class WashStart extends GameCore {
      */
 
     public void draw(Graphics2D g) {
-        renderer.draw(g, map,
-            screen.getWidth(), screen.getHeight());
-        for(int j = 0; j < bullets.size(); j++){
-            bullets.get(j).draw(g);
-        }
         
-        g.drawString("Lives: " + lives, 5, 25);
-        g.drawString("Score: " + score, 5, 50);
+        if (lives>=0) {
+            renderer.draw(g, map,
+            screen.getWidth(), screen.getHeight());
+            for(int j = 0; j < bullets.size(); j++){
+                bullets.get(j).draw(g);
+            }
+
+            g.drawString("Lives: " + lives, 5, 25);
+            g.drawString("Score: " + score, 5, 50);
+        }
+        else {
+            g.drawString("GAME OVER", 50, 50);
+        }
     }
 
 
