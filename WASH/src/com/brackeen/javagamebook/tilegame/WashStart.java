@@ -79,6 +79,8 @@ public class WashStart extends GameCore {
     private GameAction jump;
     private GameAction exit;
     private GameAction fire;
+    private GameAction pause;
+    private boolean bPause;
     public static ArrayList<Bullet> bullets;
     private int angle;
     private int bulletOffset;
@@ -125,6 +127,8 @@ public class WashStart extends GameCore {
         
         lives = 3;
         score = 0;
+        
+        bPause = false;
     }
 
 
@@ -140,7 +144,6 @@ public class WashStart extends GameCore {
     /**
      * Declares input keys
      */
-    
     private void initInput() {
         moveLeft = new GameAction("moveLeft");
         moveRight = new GameAction("moveRight");
@@ -149,6 +152,7 @@ public class WashStart extends GameCore {
         exit = new GameAction("exit",
             GameAction.DETECT_INITAL_PRESS_ONLY);
         fire = new GameAction("fire");
+        pause = new GameAction("pause", GameAction.DETECT_INITAL_PRESS_ONLY);
 
         inputManager = new InputManager(
             screen.getFullScreenWindow());
@@ -159,6 +163,7 @@ public class WashStart extends GameCore {
         inputManager.mapToKey(jump, KeyEvent.VK_UP);
         inputManager.mapToKey(fire, KeyEvent.VK_SPACE);
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
+        inputManager.mapToKey(pause, KeyEvent.VK_P);
     }
 
     /**
@@ -202,6 +207,10 @@ public class WashStart extends GameCore {
                 }
                 player.fire(true);
             }
+            
+            if(pause.isPressed()){
+                bPause = !bPause;
+            }
         }
 
     }
@@ -214,14 +223,20 @@ public class WashStart extends GameCore {
     public void draw(Graphics2D g) {
         
         if (lives>=0) {
-            renderer.draw(g, map,
-            screen.getWidth(), screen.getHeight());
-            for(int j = 0; j < bullets.size(); j++){
-                bullets.get(j).draw(g);
-            }
+            if (!bPause){
+                renderer.draw(g, map,
+                screen.getWidth(), screen.getHeight());
+                for(int j = 0; j < bullets.size(); j++){
+                    bullets.get(j).draw(g);
+                }
 
-            g.drawString("Lives: " + lives, 5, 25);
-            g.drawString("Score: " + score, 5, 50);
+                g.drawString("Lives: " + lives, 5, 25);
+                g.drawString("Score: " + score, 5, 50);
+            }
+            else {
+                g.drawString("PAUSE", 50, 50);
+            }
+            
         }
         else {
             g.drawString("GAME OVER", 50, 50);
@@ -368,7 +383,8 @@ public class WashStart extends GameCore {
 
         // get keyboard/mouse input
         checkInput(elapsedTime);
-
+        
+        if (!bPause){
         // update player
         updateCreature(player, elapsedTime);
         player.update(elapsedTime);
@@ -395,6 +411,7 @@ public class WashStart extends GameCore {
                 bullets.remove(j);
                 j--;
             } 
+        }
         }
     }
 
