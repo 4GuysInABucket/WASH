@@ -91,7 +91,7 @@ public class SoundManager extends ThreadPool {
     }
 
     /**
-     * 
+     * Closes after cleaning up.
      */
     public void close() {
         cleanUp();
@@ -99,7 +99,7 @@ public class SoundManager extends ThreadPool {
     }
 
     /**
-     * 
+     * Joins after cleaning up.
      */
     public void join() {
         cleanUp();
