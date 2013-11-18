@@ -314,6 +314,8 @@ public class ResourceManager {
             loadImage("salto4.png"),
             loadImage("salto5.png"),
             loadImage("salto6.png"),
+            loadImage("standing1.png"),
+            loadImage("standing2.png")
         };
 
         images[1] = new Image[images[0].length];
@@ -343,17 +345,17 @@ public class ResourceManager {
             grubAnim[i] = createGrubAnim(
                 images[i][13], images[i][14]);
         }
-        playerAnim[4] = createPlayerStanding(images[0][15]);//standing left
-        playerAnim[5] = createPlayerStanding(images[1][15]);//standing right
-        playerAnim[6] = createPlayerJumping(images[0][16], images[0][17], 
+        playerAnim[4] = createPlayerStanding(images[0][22], images[0][23]);//standing left
+        playerAnim[5] = createPlayerStanding(images[1][22], images[1][23]);//standing right
+        playerAnim[6] = createPlayerJumping(images[0][16], images[0][17], //jumping left
                 images[0][18], images[0][19], images[0][20], images[0][21]);
-        playerAnim[7] = createPlayerJumping(images[1][16], images[1][17], 
+        playerAnim[7] = createPlayerJumping(images[1][16], images[1][17], //jumping right
                 images[1][18], images[1][19], images[1][20], images[1][21]);
         
-        flyAnim[4] = createPlayerStanding(images[0][10]);
-        flyAnim[5] = createPlayerStanding(images[1][10]);
-        grubAnim[4] = createPlayerStanding(images[0][13]);
-        grubAnim[5] = createPlayerStanding(images[1][13]);
+        flyAnim[4] = createPlayerStanding(images[0][10], images[0][10]);
+        flyAnim[5] = createPlayerStanding(images[1][10], images[1][10]);
+        grubAnim[4] = createPlayerStanding(images[0][13], images[0][13]);
+        grubAnim[5] = createPlayerStanding(images[1][13], images[1][13]);
 
         // create creature sprites
         playerSprite = new Player(playerAnim[0], playerAnim[1],
@@ -426,10 +428,11 @@ public class ResourceManager {
      * @return  Animation
      */
 
-    private Animation createPlayerStanding(Image player1)
+    private Animation createPlayerStanding(Image player1, Image player2)
     {
         Animation anim = new Animation();
-        anim.addFrame(player1, 150);
+        anim.addFrame(player1, 250);
+        anim.addFrame(player2, 250);
         
         return anim;
     }
