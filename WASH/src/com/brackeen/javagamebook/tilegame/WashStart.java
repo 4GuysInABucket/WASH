@@ -81,6 +81,7 @@ public class WashStart extends GameCore {
     private GameAction fire;
     private GameAction pause;
     private boolean bPause;
+    private GameAction restart;
     public static ArrayList<Bullet> bullets;
     private int angle;
     private int bulletOffset;
@@ -153,6 +154,7 @@ public class WashStart extends GameCore {
             GameAction.DETECT_INITAL_PRESS_ONLY);
         fire = new GameAction("fire");
         pause = new GameAction("pause", GameAction.DETECT_INITAL_PRESS_ONLY);
+        restart = new GameAction("restart", GameAction.DETECT_INITAL_PRESS_ONLY);
 
         inputManager = new InputManager(
             screen.getFullScreenWindow());
@@ -164,8 +166,19 @@ public class WashStart extends GameCore {
         inputManager.mapToKey(fire, KeyEvent.VK_SPACE);
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
         inputManager.mapToKey(pause, KeyEvent.VK_P);
+        inputManager.mapToKey(restart, KeyEvent.VK_R);
     }
-
+    
+    private void restartGame() {
+        
+        map = resourceManager.reloadMap();
+        
+        lives = 3;
+        score = 0;
+        
+        bPause = false;
+    }
+    
     /**
      * Checks input if player is alive
      * @param elapsedTime  Time elapsed
@@ -210,6 +223,10 @@ public class WashStart extends GameCore {
             
             if(pause.isPressed()){
                 bPause = !bPause;
+            }
+            
+            if (restart.isPressed()) {
+                restartGame();
             }
         }
 
