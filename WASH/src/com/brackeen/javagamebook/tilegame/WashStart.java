@@ -81,6 +81,9 @@ public class WashStart extends GameCore {
     public static ArrayList<Bullet> bullets;
     private int angle;
     private int bulletOffset;
+    
+    public static int lives;
+    public static int score;
 
     /**
      * Initializes Game and variables.
@@ -118,6 +121,9 @@ public class WashStart extends GameCore {
         
         bullets = new ArrayList<Bullet>();
         angle=0;
+        
+        lives = 3;
+        score = 0;
     }
 
 
@@ -210,6 +216,9 @@ public class WashStart extends GameCore {
         for(int j = 0; j < bullets.size(); j++){
             bullets.get(j).draw(g);
         }
+        
+        g.drawString("Lives: " + lives, 5, 25);
+        g.drawString("Score: " + score, 5, 50);
     }
 
 
@@ -232,10 +241,6 @@ public class WashStart extends GameCore {
         }
     }
 
-
-    /**
-     
-     */
     
     /**
      * Gets the tile that a Sprites collides with. Only the
@@ -246,8 +251,7 @@ public class WashStart extends GameCore {
      * @param newX
      * @param newY
      * @return Point
-     */
-    
+     */ 
     public Point getTileCollision(Sprite sprite,
         float newX, float newY)
     {
@@ -488,9 +492,11 @@ public class WashStart extends GameCore {
                 badguy.setState(Creature.STATE_DYING);
                 player.setY(badguy.getY() - player.getHeight());
                 player.jump(true);
+                score+=100;
             }
             else {
                 // player dies!
+                lives--;
                 player.setState(Creature.STATE_DYING);
             }
         }
