@@ -322,8 +322,8 @@ public class ResourceManager {
 
         // create creature animations
         Animation[] playerAnim = new Animation[6];
-        Animation[] flyAnim = new Animation[4];
-        Animation[] grubAnim = new Animation[4];
+        Animation[] flyAnim = new Animation[6];
+        Animation[] grubAnim = new Animation[6];
         for (int i=0; i<4; i++) {
            playerAnim[i] = createPlayerAnim(
                 images[i][0], images[i][1], images[i][2], 
@@ -336,14 +336,18 @@ public class ResourceManager {
         }
         playerAnim[4] = createPlayerStanding(images[0][13]);
         playerAnim[5] = createPlayerStanding(images[1][13]);
+        flyAnim[4] = createPlayerStanding(images[0][8]);
+        flyAnim[5] = createPlayerStanding(images[1][8]);
+        grubAnim[4] = createPlayerStanding(images[0][11]);
+        grubAnim[5] = createPlayerStanding(images[1][11]);
 
         // create creature sprites
         playerSprite = new Player(playerAnim[0], playerAnim[1],
-            playerAnim[2], playerAnim[3], playerAnim[4]);
+            playerAnim[2], playerAnim[3], playerAnim[4], playerAnim[5]);
         flySprite = new Fly(flyAnim[0], flyAnim[1],
-            flyAnim[2], flyAnim[3]);
+            flyAnim[2], flyAnim[3], flyAnim[4], flyAnim[5]);
         grubSprite = new Grub(grubAnim[0], grubAnim[1],
-            grubAnim[2], grubAnim[3]);
+            grubAnim[2], grubAnim[3], grubAnim[4], flyAnim[5]);
     }
 
     /**

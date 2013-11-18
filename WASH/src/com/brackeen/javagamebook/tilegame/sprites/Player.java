@@ -24,9 +24,9 @@ public class Player extends Creature {
      */
     
     public Player(Animation left, Animation right,
-        Animation deadLeft, Animation deadRight, Animation standing)
+        Animation deadLeft, Animation deadRight, Animation standingLeft, Animation standingRight)
     {
-        super(left, right, deadLeft, deadRight);
+        super(left, right, deadLeft, deadRight, standingLeft, standingRight);
         firing = false;
         bulletTimer = System.nanoTime();
         bulletDelay = 500;

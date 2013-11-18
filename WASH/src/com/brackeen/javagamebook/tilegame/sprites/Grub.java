@@ -13,11 +13,13 @@ public class Grub extends Creature {
      * @param right
      * @param deadLeft
      * @param deadRight 
+     * @param standingLeft
+     * @param standingRight
      */
     public Grub(Animation left, Animation right,
-        Animation deadLeft, Animation deadRight)
+        Animation deadLeft, Animation deadRight, Animation standingLeft, Animation standingRight)
     {
-        super(left, right, deadLeft, deadRight);
+        super(left, right, deadLeft, deadRight, standingLeft, standingRight);
     }
 
     /**

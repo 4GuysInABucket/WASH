@@ -80,6 +80,7 @@ public class WashStart extends GameCore {
     private GameAction fire;
     public static ArrayList<Bullet> bullets;
     private int angle;
+    private int bulletOffset;
 
     /**
      * Initializes Game and variables.
@@ -170,10 +171,12 @@ public class WashStart extends GameCore {
             if (moveLeft.isPressed()) {
                 velocityX-=player.getMaxSpeed();
                 angle=180;
+                bulletOffset=0;
             }
             if (moveRight.isPressed()) {
                 velocityX+=player.getMaxSpeed();
                 angle=0;
+                bulletOffset=player.getWidth();
             }
             if (jump.isPressed()) {
                 player.jump(false);
@@ -185,7 +188,7 @@ public class WashStart extends GameCore {
                     long elapsed = (System.nanoTime() - player.getBulletTimer())/1000000;
                     if(elapsed > player.getBulletDelay()){
                         bullets.add(new Bullet(angle,
-                                player.getX()+player.getWidth()/2+TileMapRenderer.offsetX,
+                                player.getX()+bulletOffset+TileMapRenderer.offsetX,
                                 player.getY()-player.getHeight()/2));
                         player.setBulletTimer(System.nanoTime());
                     }
