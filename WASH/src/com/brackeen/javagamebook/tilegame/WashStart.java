@@ -221,7 +221,6 @@ public class WashStart extends GameCore {
      */
 
     public void draw(Graphics2D g) {
-        
         if (lives>=0) {
             if (!bPause){
                 renderer.draw(g, map,
@@ -385,33 +384,33 @@ public class WashStart extends GameCore {
         checkInput(elapsedTime);
         
         if (!bPause){
-        // update player
-        updateCreature(player, elapsedTime);
-        player.update(elapsedTime);
+            // update player
+            updateCreature(player, elapsedTime);
+            player.update(elapsedTime);
 
-        // update other sprites
-        Iterator i = map.getSprites();
-        while (i.hasNext()) {
-            Sprite sprite = (Sprite)i.next();
-            if (sprite instanceof Creature) {
-                Creature creature = (Creature)sprite;
-                if (creature.getState() == Creature.STATE_DEAD) {
-                    i.remove();
+            // update other sprites
+            Iterator i = map.getSprites();
+            while (i.hasNext()) {
+                Sprite sprite = (Sprite)i.next();
+                if (sprite instanceof Creature) {
+                    Creature creature = (Creature)sprite;
+                    if (creature.getState() == Creature.STATE_DEAD) {
+                        i.remove();
+                    }
+                    else {
+                        updateCreature(creature, elapsedTime);
+                    }
                 }
-                else {
-                    updateCreature(creature, elapsedTime);
-                }
+                // normal update
+                sprite.update(elapsedTime);
             }
-            // normal update
-            sprite.update(elapsedTime);
-        }
-        for(int j = 0; j < bullets.size(); j++){
-            boolean remove = bullets.get(j).update();
-            if(remove){
-                bullets.remove(j);
-                j--;
-            } 
-        }
+            for(int j = 0; j < bullets.size(); j++){
+                boolean remove = bullets.get(j).update();
+                if(remove){
+                    bullets.remove(j);
+                    j--;
+                } 
+            }
         }
     }
 
@@ -539,6 +538,7 @@ public class WashStart extends GameCore {
 
         if (powerUp instanceof PowerUp.Star) {
             // do something here, like give the player points
+            score += 50;
             soundManager.play(prizeSound);
         }
         else if (powerUp instanceof PowerUp.Music) {
