@@ -44,6 +44,7 @@ import com.brackeen.javagamebook.graphics.*;
 import com.brackeen.javagamebook.sound.*;
 import com.brackeen.javagamebook.input.*;
 import com.brackeen.javagamebook.test.GameCore;
+import static com.brackeen.javagamebook.test.GameCore.screen;
 import com.brackeen.javagamebook.tilegame.sprites.*;
 
 /**
@@ -81,6 +82,9 @@ public class WashStart extends GameCore {
     public static ArrayList<Bullet> bullets;
     private int angle;
     private int bulletOffset;
+    
+    public static int lives;
+    public static int score;
 
     /**
      * Initializes Game and variables.
@@ -118,6 +122,9 @@ public class WashStart extends GameCore {
         
         bullets = new ArrayList<Bullet>();
         angle=0;
+        
+        lives = 3;
+        score = 0;
     }
 
 
@@ -205,10 +212,19 @@ public class WashStart extends GameCore {
      */
 
     public void draw(Graphics2D g) {
-        renderer.draw(g, map,
+        
+        if (lives>=0) {
+            renderer.draw(g, map,
             screen.getWidth(), screen.getHeight());
-        for(int j = 0; j < bullets.size(); j++){
-            bullets.get(j).draw(g);
+            for(int j = 0; j < bullets.size(); j++){
+                bullets.get(j).draw(g);
+            }
+
+            g.drawString("Lives: " + lives, 5, 25);
+            g.drawString("Score: " + score, 5, 50);
+        }
+        else {
+            g.drawString("GAME OVER", 50, 50);
         }
     }
 
@@ -232,10 +248,6 @@ public class WashStart extends GameCore {
         }
     }
 
-
-    /**
-     
-     */
     
     /**
      * Gets the tile that a Sprites collides with. Only the
@@ -246,8 +258,7 @@ public class WashStart extends GameCore {
      * @param newX
      * @param newY
      * @return Point
-     */
-    
+     */ 
     public Point getTileCollision(Sprite sprite,
         float newX, float newY)
     {
@@ -488,9 +499,11 @@ public class WashStart extends GameCore {
                 badguy.setState(Creature.STATE_DYING);
                 player.setY(badguy.getY() - player.getHeight());
                 player.jump(true);
+                score+=100;
             }
             else {
                 // player dies!
+                lives--;
                 player.setState(Creature.STATE_DYING);
             }
         }
