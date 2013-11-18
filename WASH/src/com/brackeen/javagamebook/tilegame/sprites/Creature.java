@@ -196,9 +196,15 @@ public abstract class Creature extends Sprite {
     public void update(long elapsedTime) {
         // select the correct Animation
         Animation newAnim = anim;
-        if(Player.onGround == false && standing == 0){
+        if(Player.onGround == false && getVelocityX() < 0 ){
             newAnim = jumpingLeft;
-        }else if(Player.onGround == false && standing == 1){
+            standing = 0;
+        }else if(Player.onGround == false && getVelocityX() > 0){
+            newAnim = jumpingRight;
+            standing = 1;
+        }else if(Player.onGround == false && getVelocityX() == 0 && standing == 0 ){
+            newAnim = jumpingLeft;
+        }else if(Player.onGround == false && getVelocityX() == 0 && standing == 1){
             newAnim = jumpingRight;
         }else if (getVelocityX() < 0) {
             newAnim = left;
