@@ -41,8 +41,8 @@ public class SoundManager extends ThreadPool {
     /**
      * Creates a new SoundManager with the specified maximum
      * number of simultaneous sounds.
-     * @param playbackFormat
-     * @param maxSimultaneousSounds 
+     * @param playbackFormat  the format of the audio
+     * @param maxSimultaneousSounds  the maximum number of simultaneous sounds
      */
     public SoundManager(AudioFormat playbackFormat,
         int maxSimultaneousSounds)
@@ -63,8 +63,8 @@ public class SoundManager extends ThreadPool {
     /**
      * Gets the maximum number of simultaneous sounds with the
      * specified AudioFormat that the default mixer can play.
-     * @param playbackFormat
-     * @return 
+     * @param playbackFormat  the audio format
+     * @return the maximum number of simultaneous sounds
      */
     public static int getMaxSimultaneousSounds(
         AudioFormat playbackFormat)
@@ -109,7 +109,7 @@ public class SoundManager extends ThreadPool {
 
     /**
      * Sets the paused state. Sounds may not pause immediately.
-     * @param paused 
+     * @param paused  the current paused state
      */
     public void setPaused(boolean paused) {
         if (this.paused != paused) {
@@ -126,7 +126,7 @@ public class SoundManager extends ThreadPool {
 
     /**
      * Returns the paused state.
-     * @return 
+     * @return true if paused, or false if not
      */
     public boolean isPaused() {
         return paused;
@@ -136,8 +136,8 @@ public class SoundManager extends ThreadPool {
     /**
      * Loads a Sound from the file system. Returns null if an
      * error occurs.
-     * @param filename
-     * @return 
+     * @param filename  the name of the sound file
+     * @return the loaded sound
      */
     public Sound getSound(String filename) {
         return getSound(getAudioInputStream(filename));
@@ -145,17 +145,21 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Loads a Sound from an input stream. Returns null if an
-        error occurs.
-    */
+     * Loads a Sound from an input stream. Returns null if an
+     * error occurs.
+     * @param is  the input stream
+     * @return the loaded sound
+     */
     public Sound getSound(InputStream is) {
         return getSound(getAudioInputStream(is));
     }
 
 
     /**
-        Loads a Sound from an AudioInputStream.
-    */
+     * Loads a Sound from an AudioInputStream.
+     * @param audioStream  the audio stream
+     * @return the loaded sound
+     */
     public Sound getSound(AudioInputStream audioStream) {
         if (audioStream == null) {
             return null;
@@ -182,9 +186,11 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Creates an AudioInputStream from a sound from the file
-        system.
-    */
+     * Creates an AudioInputStream from a sound from the file
+     * system.
+     * @param filename  the name of the sound file
+     * @return the audio input stream
+     */
     public AudioInputStream getAudioInputStream(String filename) {
         try {
             return getAudioInputStream(
@@ -198,9 +204,11 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Creates an AudioInputStream from a sound from an input
-        stream
-    */
+     * Creates an AudioInputStream from a sound from an input
+     * stream.
+     * @param is  the input stream
+     * @return the audio input stream
+     */
     public AudioInputStream getAudioInputStream(InputStream is) {
 
         try {
@@ -230,17 +238,23 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Plays a sound. This method returns immediately.
-    */
+     * Plays a sound. This method returns immediately.
+     * @param sound  the sound to be played
+     * @return the played sound
+     */
     public InputStream play(Sound sound) {
         return play(sound, null, false);
     }
 
 
     /**
-        Plays a sound with an optional SoundFilter, and optionally
-        looping. This method returns immediately.
-    */
+     * Plays a sound with an optional SoundFilter, and optionally
+     * looping. This method returns immediately.
+     * @param sound  the sound to be played
+     * @param filter  the sound filter
+     * @param loop  if the sound will be looped or not
+     * @return the played sound
+     */
     public InputStream play(Sound sound, SoundFilter filter,
         boolean loop)
     {
@@ -261,18 +275,23 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Plays a sound from an InputStream. This method
-        returns immediately.
-    */
+     * Plays a sound from an InputStream. This method
+     * returns immediately.
+     * @param is  the input stream
+     * @return the played sound
+     */
     public InputStream play(InputStream is) {
         return play(is, null);
     }
 
 
     /**
-        Plays a sound from an InputStream with an optional
-        sound filter. This method returns immediately.
-    */
+     * Plays a sound from an InputStream with an optional
+     * sound filter. This method returns immediately.
+     * @param is  the input stream of the sound to be played
+     * @param filter  the sound filter
+     * @return the played sound
+     */
     public InputStream play(InputStream is, SoundFilter filter) {
         if (is != null) {
             if (filter != null) {
@@ -285,9 +304,9 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Signals that a PooledThread has started. Creates the
-        Thread's line and buffer.
-    */
+     * Signals that a PooledThread has started. Creates the
+     * Thread's line and buffer.
+     */
     protected void threadStarted() {
         // wait for the SoundManager constructor to finish
         synchronized (this) {
@@ -328,9 +347,9 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        Signals that a PooledThread has stopped. Drains and
-        closes the Thread's Line.
-    */
+     * Signals that a PooledThread has stopped. Drains and
+     * closes the Thread's Line.
+     */
     protected void threadStopped() {
         SourceDataLine line = (SourceDataLine)localLine.get();
         if (line != null) {
@@ -341,12 +360,12 @@ public class SoundManager extends ThreadPool {
 
 
     /**
-        The SoundPlayer class is a task for the PooledThreads to
-        run. It receives the threads's Line and byte buffer from
-        the ThreadLocal variables and plays a sound from an
-        InputStream.
-        <p>This class only works when called from a PooledThread.
-    */
+     * The SoundPlayer class is a task for the PooledThreads to
+     * run. It receives the threads's Line and byte buffer from
+     * the ThreadLocal variables and plays a sound from an
+     * InputStream.
+     * <p>This class only works when called from a PooledThread.
+     */
     protected class SoundPlayer implements Runnable {
 
         private InputStream source;
