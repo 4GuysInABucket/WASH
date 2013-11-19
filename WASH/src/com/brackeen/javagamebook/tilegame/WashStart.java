@@ -209,10 +209,10 @@ public class WashStart extends GameCore {
             }
             player.setVelocityX(velocityX);
             
-            if(Player.standing == 1){
-                bulletAnim = ResourceManager.bulletAnimationRight();
-            }else{
+            if(player.getStanding()==0){
                 bulletAnim = ResourceManager.bulletAnimationLeft();
+            }else{
+                bulletAnim = ResourceManager.bulletAnimationRight();
             }
                                    
             if(fire.isPressed()){
@@ -221,7 +221,7 @@ public class WashStart extends GameCore {
                     if(elapsed > player.getBulletDelay()){
                         bullets.add(new Bullet(bulletAnim, angle,
                                 player.getX()+bulletOffset+TileMapRenderer.offsetX,
-                                player.getY()-player.getHeight()/2));
+                                player.getY()-player.getHeight()/2-16));
                         player.setBulletTimer(System.nanoTime());
                     }
                 }

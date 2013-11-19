@@ -57,7 +57,7 @@ public class Bullet extends Sprite{
         r=6;
         
         rad = Math.toRadians(angle);
-        speed = 1;
+        speed = 2;
         dx = Math.cos(rad) * speed;
         dy = Math.sin(rad) * speed;
         
@@ -82,6 +82,8 @@ public class Bullet extends Sprite{
     }
     
     public void draw(Graphics2D g){
+        //g.setColor(color1);
+        //g.fillOval((int)(x - r), (int)(y - r), 2 * r, 2 * r);
         g.drawImage(this.getImage(), Math.round(this.x), Math.round(this.y), null);
     }
     

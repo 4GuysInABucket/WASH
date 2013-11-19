@@ -27,7 +27,7 @@ public abstract class Creature extends Sprite {
     private Animation standingRight;
     private Animation jumpingLeft;
     private Animation jumpingRight;
-    public static int standing;
+    private int standing;
     private int state;
     private long stateTime;
 
@@ -187,6 +187,10 @@ public abstract class Creature extends Sprite {
     public void collideVertical() {
         setVelocityY(0);
     }
+    
+    public int getStanding(){
+        return standing;
+    }
 
 
     /**
@@ -204,8 +208,10 @@ public abstract class Creature extends Sprite {
             standing = 1;
         }else if(Player.onGround == false && getVelocityX() == 0 && standing == 0 ){
             newAnim = jumpingLeft;
+            standing = 0;
         }else if(Player.onGround == false && getVelocityX() == 0 && standing == 1){
             newAnim = jumpingRight;
+            standing = 1;
         }else if (getVelocityX() < 0) {
             newAnim = left;
             standing = 0;
