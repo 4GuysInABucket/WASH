@@ -27,7 +27,7 @@ public abstract class Creature extends Sprite {
     private Animation standingRight;
     private Animation jumpingLeft;
     private Animation jumpingRight;
-    private int standing;
+    public static int standing;
     private int state;
     private long stateTime;
 

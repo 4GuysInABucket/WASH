@@ -21,6 +21,10 @@ public class Player extends Creature {
      * @param right
      * @param deadLeft
      * @param deadRight 
+     * @param standingLeft
+     * @param standingRight
+     * @param jumpingLeft
+     * @param jumpingRight
      */
     
     public Player(Animation left, Animation right,

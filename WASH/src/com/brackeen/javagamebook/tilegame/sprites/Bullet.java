@@ -23,18 +23,21 @@
  */
 package com.brackeen.javagamebook.tilegame.sprites;
 
-import java.awt.*;
 import com.brackeen.javagamebook.tilegame.WashStart;
+import com.brackeen.javagamebook.graphics.Sprite;
+import com.brackeen.javagamebook.graphics.Animation;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
 /**
  *
  * @author JLo
  */
-public class Bullet {
+public class Bullet extends Sprite{
     
     //Variables
-    private double x;
-    private double y;
+    private float x;
+    private float y;
     private int r;
     
     private double dx;
@@ -45,36 +48,41 @@ public class Bullet {
     private Color color1;
     
     //Constructor
-    public Bullet(double angle, double x, double y){
+    public Bullet(Animation anim, double angle, float x, float y){
+        
+        super(anim);
         
         this.x = x;
         this.y = y;
-        r=4;
+        r=6;
         
         rad = Math.toRadians(angle);
-        speed = 2;
+        speed = 1;
         dx = Math.cos(rad) * speed;
         dy = Math.sin(rad) * speed;
         
-        color1 = Color.YELLOW;
+        color1 = Color.BLUE;
         
     }
     
-    public boolean update(){
+    public boolean updateBullet(long elapsedTime){
         x += dx;
         y += dy;
+        
+        anim.update(elapsedTime);
         
         if(x < -r || x > WashStart.screen.getWidth() + r ||
                 y < -r || y > WashStart.screen.getHeight() + r){
             return true;
         }
         
+        
         return false;
+        
     }
     
     public void draw(Graphics2D g){
-        g.setColor(color1);
-        g.fillOval((int)(x - r), (int)(y - r), 2 * r, 2 * r);
+        g.drawImage(this.getImage(), Math.round(this.x), Math.round(this.y), null);
     }
     
 }

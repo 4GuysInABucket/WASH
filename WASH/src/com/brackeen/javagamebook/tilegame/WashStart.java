@@ -85,6 +85,7 @@ public class WashStart extends GameCore {
     public static ArrayList<Bullet> bullets;
     private int angle;
     private int bulletOffset;
+    private Animation bulletAnim;
     
     public static int lives;
     public static int score;
@@ -201,18 +202,24 @@ public class WashStart extends GameCore {
             if (moveRight.isPressed()) {
                 velocityX+=player.getMaxSpeed();
                 angle=0;
-                bulletOffset=player.getWidth();
+                bulletOffset=player.getWidth()/2;
             }
             if (jump.isPressed()) {
                 player.jump(false);
             }
             player.setVelocityX(velocityX);
             
+            if(Player.standing == 1){
+                bulletAnim = ResourceManager.bulletAnimationRight();
+            }else{
+                bulletAnim = ResourceManager.bulletAnimationLeft();
+            }
+                                   
             if(fire.isPressed()){
                 if(player.isFiring()){
                     long elapsed = (System.nanoTime() - player.getBulletTimer())/1000000;
                     if(elapsed > player.getBulletDelay()){
-                        bullets.add(new Bullet(angle,
+                        bullets.add(new Bullet(bulletAnim, angle,
                                 player.getX()+bulletOffset+TileMapRenderer.offsetX,
                                 player.getY()-player.getHeight()/2));
                         player.setBulletTimer(System.nanoTime());
@@ -422,7 +429,7 @@ public class WashStart extends GameCore {
                 sprite.update(elapsedTime);
             }
             for(int j = 0; j < bullets.size(); j++){
-                boolean remove = bullets.get(j).update();
+                boolean remove = bullets.get(j).updateBullet(elapsedTime);
                 if(remove){
                     bullets.remove(j);
                     j--;

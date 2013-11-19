@@ -19,7 +19,7 @@ public class ResourceManager {
 
     private ArrayList tiles;
     private int currentMap;
-    private GraphicsConfiguration gc;
+    private static GraphicsConfiguration gc;
 
     // host sprites used for cloning
     private Sprite playerSprite;
@@ -47,7 +47,7 @@ public class ResourceManager {
      * @param name Image Name
      * @return Image
      */
-    public Image loadImage(String name) {
+    public static Image loadImage(String name) {
         String filename = "images/" + name;
         return new ImageIcon(filename).getImage();
     }
@@ -59,7 +59,7 @@ public class ResourceManager {
      * @return Image
      */
 
-    public Image getMirrorImage(Image image) {
+    public static Image getMirrorImage(Image image) {
         return getScaledImage(image, -1, 1);
     }
 
@@ -83,7 +83,7 @@ public class ResourceManager {
      * @return Image
      */
 
-    private Image getScaledImage(Image image, float x, float y) {
+    private static Image getScaledImage(Image image, float x, float y) {
 
         // set up the transform
         AffineTransform transform = new AffineTransform();
@@ -500,6 +500,25 @@ public class ResourceManager {
         anim.addFrame(loadImage("music3.png"), 150);
         anim.addFrame(loadImage("music2.png"), 150);
         musicSprite = new PowerUp.Music(anim);
+    }
+    
+    public static Animation bulletAnimationLeft(){
+        Animation anim = new Animation();
+        
+        anim.addFrame(loadImage("bullet1.png"), 50);
+        anim.addFrame(loadImage("bullet2.png"), 50);
+        anim.addFrame(loadImage("bullet3.png"), 50);
+        
+        return anim;
+    }
+    public static Animation bulletAnimationRight(){
+        Animation anim = new Animation();
+        
+        anim.addFrame(getMirrorImage(loadImage("bullet1.png")), 50);
+        anim.addFrame(getMirrorImage(loadImage("bullet2.png")), 50);
+        anim.addFrame(getMirrorImage(loadImage("bullet3.png")), 50);
+        
+        return anim;
     }
 
 }
