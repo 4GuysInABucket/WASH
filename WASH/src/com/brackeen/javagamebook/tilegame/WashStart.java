@@ -518,8 +518,7 @@ public class WashStart extends GameCore {
         }
 
     }
-
-
+    
     /**
      * Checks for Player collision with other Sprites. If
      * canKill is true, collisions with Creatures will kill
@@ -557,8 +556,7 @@ public class WashStart extends GameCore {
             }
         }
     }
-
-
+    
     /**
      * Gives the player the speicifed power up and removes it
      * from the map.
