@@ -89,6 +89,10 @@ public class WashStart extends GameCore {
     
     public static int lives;
     public static int score;
+    
+    public static Image iPause;
+    public static Image iGameOver;
+    public static Image iLives;
 
     /**
      * Initializes Game and variables.
@@ -131,6 +135,10 @@ public class WashStart extends GameCore {
         score = 0;
         
         bPause = false;
+        
+        iPause = ResourceManager.loadImage("pause.png");
+        iGameOver = ResourceManager.loadImage("gameover.jpg");
+        iLives = ResourceManager.loadImage("toothbrush.png");
     }
 
 
@@ -256,17 +264,20 @@ public class WashStart extends GameCore {
                     bullets.get(j).draw(g);
                 }
 
-                g.drawString("Lives: " + lives, 5, 25);
-                g.drawString("Score: " + score, 5, 50);
+                for (int i = 0; i < lives; i++) {
+                    g.drawImage(iLives, i*60+5, 10, null);
+                }
+                
+                g.drawString("Score: " + score, 5, 60);
             }
             else {
-                g.drawImage(ResourceManager.loadImage("pause.png"), 0, 0,
+                g.drawImage(iPause, 0, 0,
                     window.getWidth(), window.getHeight(), null);
             }
             
         }
         else {
-            g.drawImage(ResourceManager.loadImage("gameover.jpg"), 0, 0,
+            g.drawImage(iGameOver, 0, 0,
                     window.getWidth(), window.getHeight(), null);
         }
     }
