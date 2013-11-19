@@ -245,7 +245,10 @@ public class WashStart extends GameCore {
      */
 
     public void draw(Graphics2D g) {
-        if (lives>=0) {
+        
+        Window window = ScreenManager.device.getFullScreenWindow();
+        
+        if (lives>0) {
             if (!bPause){
                 renderer.draw(g, map,
                 screen.getWidth(), screen.getHeight());
@@ -257,12 +260,14 @@ public class WashStart extends GameCore {
                 g.drawString("Score: " + score, 5, 50);
             }
             else {
-                g.drawString("PAUSE", 50, 50);
+                g.drawImage(ResourceManager.loadImage("pause.png"), 0, 0,
+                    window.getWidth(), window.getHeight(), null);
             }
             
         }
         else {
-            g.drawString("GAME OVER", 50, 50);
+            g.drawImage(ResourceManager.loadImage("gameover.jpg"), 0, 0,
+                    window.getWidth(), window.getHeight(), null);
         }
     }
 
