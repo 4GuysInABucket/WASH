@@ -97,7 +97,6 @@ public class WashStart extends GameCore {
     /**
      * Initializes Game and variables.
      */
-    
     public void init() {
         super.init();
 
@@ -178,6 +177,9 @@ public class WashStart extends GameCore {
         inputManager.mapToKey(restart, KeyEvent.VK_R);
     }
     
+    /**
+     * Reinitializes variables, in order to restart the game.
+     */
     private void restartGame() {
         
         map = resourceManager.reloadMap();
@@ -192,7 +194,6 @@ public class WashStart extends GameCore {
      * Checks input if player is alive
      * @param elapsedTime  Time elapsed
      */
-
     private void checkInput(long elapsedTime) {
 
         if (exit.isPressed()) {
@@ -251,7 +252,6 @@ public class WashStart extends GameCore {
      * Draw Method
      * @param g  Graphics2D
      */
-
     public void draw(Graphics2D g) {
         
         Window window = ScreenManager.device.getFullScreenWindow();
@@ -281,16 +281,14 @@ public class WashStart extends GameCore {
                     window.getWidth(), window.getHeight(), null);
         }
     }
-
-
+    
     /**
      * Gets the current map.
      */
     public TileMap getMap() {
         return map;
     }
-
-
+    
     /**
      * Turns on/off drum playback in the midi music (track 1).
      */
@@ -301,7 +299,6 @@ public class WashStart extends GameCore {
                 !sequencer.getTrackMute(DRUM_TRACK));
         }
     }
-
     
     /**
      * Gets the tile that a Sprites collides with. Only the
@@ -346,7 +343,6 @@ public class WashStart extends GameCore {
         return null;
     }
 
-
     /**
         Checks if two Sprites collide with one another. Returns
         false if the two Sprites are the same. Returns false if
@@ -378,8 +374,7 @@ public class WashStart extends GameCore {
             s1y < s2y + s2.getHeight() &&
             s2y < s1y + s1.getHeight());
     }
-
-
+    
     /**
      * Gets the Sprite that collides with the specified Sprite,
      * or null if no Sprite collides with the specified Sprite.
@@ -402,8 +397,7 @@ public class WashStart extends GameCore {
         // no collision found
         return null;
     }
-
-
+    
     /**
      * Updates Animation, position, and velocity of all Sprites
      * in the current map.
@@ -453,8 +447,7 @@ public class WashStart extends GameCore {
             }
         }
     }
-
-
+    
     /**
      * Updates the creature, applying gravity for creatures that
      * aren't flying, and checks collisions.
