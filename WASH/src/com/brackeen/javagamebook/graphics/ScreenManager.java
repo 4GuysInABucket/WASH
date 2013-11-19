@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  */
 public class ScreenManager {
 
-    private GraphicsDevice device;
+    public static GraphicsDevice device;
 
     /**
      * Creates a new ScreenManager object.
@@ -223,7 +223,7 @@ public class ScreenManager {
      * Returns the height of the window currently used in full
      * screen mode. Returns 0 if the device is not in full
      * screen mode.
-     * @return width of window if not null, or <code>0</code> if null 
+     * @return height of window if not null, or <code>0</code> if null 
      */
     public int getHeight() {
         Window window = device.getFullScreenWindow();
