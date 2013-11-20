@@ -3,7 +3,7 @@
  * @author Hilce Estefanía Larsen Ruiz
  * @author Martha Iliana García Hinojosa
  * @author Carlos Enrique Alavez García
- * @version alpha
+ * @version beta
  */
 
 /*
@@ -47,6 +47,15 @@ import com.brackeen.javagamebook.test.GameCore;
 import static com.brackeen.javagamebook.test.GameCore.screen;
 import com.brackeen.javagamebook.tilegame.sprites.*;
 
+import java.util.LinkedList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * WashStart manages all parts of the game.
  */
@@ -89,6 +98,9 @@ public class WashStart extends GameCore {
     
     public static int lives;
     public static int score;
+    private LinkedList<Integer> scorelist; 
+    private String fileName;
+    private String[] arr;
     
     public static Image iPause;
     public static Image iGameOver;
@@ -138,9 +150,11 @@ public class WashStart extends GameCore {
         iPause = ResourceManager.loadImage("pause.png");
         iGameOver = ResourceManager.loadImage("gameover.jpg");
         iLives = ResourceManager.loadImage("toothbrush.png");
+        
+        fileName = "scores.txt";
+        scorelist = new LinkedList<Integer>();
     }
-
-
+    
     /**
      * Closes any resources used by the WashStart.
      */
@@ -174,7 +188,7 @@ public class WashStart extends GameCore {
         inputManager.mapToKey(fire, KeyEvent.VK_SPACE);
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
         inputManager.mapToKey(pause, KeyEvent.VK_P);
-        inputManager.mapToKey(restart, KeyEvent.VK_R);
+        inputManager.mapToKey(restart, KeyEvent.VK_ENTER);
     }
     
     /**
@@ -188,6 +202,8 @@ public class WashStart extends GameCore {
         score = 0;
         
         bPause = false;
+        
+        scorelist = new LinkedList<Integer>();
     }
     
     /**
@@ -241,7 +257,8 @@ public class WashStart extends GameCore {
                 bPause = !bPause;
             }
             
-            if (restart.isPressed()) {
+            
+            if (lives<=0 && restart.isPressed()) {
                 restartGame();
             }
         }
@@ -447,6 +464,17 @@ public class WashStart extends GameCore {
             }
             checkBulletCollision();
         }
+        
+        if (lives<=0) {
+            try {
+                readFile();
+                scorelist.add(score);
+                saveFile();
+            } catch (IOException ex) {
+                System.out.println("Error in " + ex.toString());
+            }
+        }
+        
     }
     
     /**
@@ -600,5 +628,44 @@ public class WashStart extends GameCore {
             map = resourceManager.loadNextMap();
         }
     }
-
+    
+    /**
+     * 
+     * @throws IOException 
+     */
+    public void readFile() throws IOException {
+                                                          
+                BufferedReader fileIn;
+                try {
+                    fileIn = new BufferedReader(new FileReader(fileName));
+                } catch (FileNotFoundException e){
+                    File points = new File(fileName);
+                    PrintWriter fileOut = new PrintWriter(points);
+                    fileOut.println("100");
+                    fileOut.close();
+                    fileIn = new BufferedReader(new FileReader(fileName));
+                }
+                String dato = fileIn.readLine();
+                while(dato != null) {
+                    int number = (Integer.parseInt(dato));
+                    scorelist.add(number);
+                    dato = fileIn.readLine();
+                }
+                fileIn.close();
+        }
+    
+    /**
+     * 
+     * @throws IOException 
+     */
+    public void saveFile() throws IOException {
+                                                          
+        PrintWriter fileOut = new PrintWriter(new FileWriter(fileName));
+        for (int i = 0; i < scorelist.size(); i++) {
+            //Scores x;
+            //x = (Scores) vec.get(i);
+            fileOut.println(scorelist.get(i));
+        }
+        fileOut.close();
+    }
 }
