@@ -78,6 +78,9 @@ public abstract class Creature extends Sprite {
         state = STATE_NORMAL;
         standing = 1;
     }
+    public Creature(Animation anim){
+        super(anim);
+    }
 
     /**
      * Clone Creature

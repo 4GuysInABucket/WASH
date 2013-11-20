@@ -33,7 +33,7 @@ import java.awt.Graphics2D;
  *
  * @author JLo
  */
-public class Bullet extends Sprite{
+public class Bullet extends Creature{
     
     //Variables
     private float x;
@@ -63,6 +63,14 @@ public class Bullet extends Sprite{
         
         color1 = Color.BLUE;
         
+    }
+    
+    public float getX(){
+        return this.x;
+    }
+    
+    public float getY(){
+        return this.y;
     }
     
     public boolean updateBullet(long elapsedTime){

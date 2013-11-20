@@ -435,6 +435,7 @@ public class WashStart extends GameCore {
                     j--;
                 } 
             }
+            checkBulletCollision();
         }
     }
 
@@ -503,11 +504,6 @@ public class WashStart extends GameCore {
             }
             creature.collideVertical();
         }
-        if (creature instanceof Player) {
-            boolean canKill = (oldY < creature.getY());
-            checkPlayerCollision((Player)creature, canKill);
-        }
-
     }
 
 
@@ -544,7 +540,27 @@ public class WashStart extends GameCore {
             else {
                 // player dies!
                 lives--;
-                player.setState(Creature.STATE_DYING);
+                player.setY(badguy.getY() - player.getHeight());
+                player.jump(true);
+                //player.setState(Creature.STATE_DYING);
+            }
+        }
+    }
+    
+    /**
+     * Checks for Grub collision with bullets. Bullets kill grub.
+     * 
+     * @param grub Grub
+     * @param bullets Bullet
+     */
+    public void checkBulletCollision()
+    {
+        for(int i = 0; i<bullets.size(); i++){
+            Sprite collisionSprite = getSpriteCollision(bullets.get(i));
+            if(collisionSprite instanceof Grub || collisionSprite instanceof Fly){
+                Creature badguy = (Creature)collisionSprite;
+                badguy.setState(Creature.STATE_DYING);
+                score+=100;
             }
         }
     }

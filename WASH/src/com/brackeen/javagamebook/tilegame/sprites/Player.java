@@ -124,7 +124,7 @@ public class Player extends Creature {
     
     /**
      * Makes the player fire 
-     * @param forceJump 
+     * @param fire 
      */
     public void fire(boolean fire) {
         this.firing = fire;
