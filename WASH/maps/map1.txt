@@ -6,16 +6,16 @@
 #   o       Star
 #   !       Music Note
 #   *       Goal
-#   1       Bad Guy 1 (grub)
+#   1       Bad Guy 1 (sucio)
 #   2       Bad Guy 2 (fly)
                                                                  
-                                                     o      o    o
-                       o o o        o o o       o     o      o 
-                      IIIIIIIIIIIIIIIIIIII       o     o         2
-                      o o o o o o                o        2
-                                                EBBBBBBBF
-                           2                   EGAAAAAAAD
-      1                                     2 EGAAAAAAAAD
-BBBBBBBF           EBBF         EBBBF        EGAAAAAAAAAD
-AAAAAAAHF      1EBBGAAHBB  B  BBGAAAHF      EGAAAAAAAAAAD      *
-AAAAAAAAHBBBBBBBGAAAAAAAA  A  AAAAAAAHBBBBBBGAAAAAAAAAAAHBBBBBBBBB
+                                                                                                               o
+                                                                                                               C
+                                                                                                               C
+                                                                                                        ooo    C
+                                                       o   o  o  o                                     o   o   C
+                                                                                                      o     o  C
+                                                                 1           1         o oo o       EBF      o C
+                                1                   o1EBBBBBBBBBBBF          EBBBF    o o  o o    EBGAD        C
+         o o o      1  EBBBBBBBBFo   1EBFooo  EBBBBBBBGAAAAAAAAAAAHF      EBBGAAAHBBBBB B  B BBBBBGAAAD     *  C
+BBBBBBBBBBBBBBBBBBBBBBBGAAAAAAAAHBBBBBGAHBBBBBGAAAAAAAAAAAAAAAAAAAAHBBBBBBGAAAAAAAAAAAA A  A AAAAAAAAAHBBBBBBBBG

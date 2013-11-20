@@ -110,7 +110,7 @@ public class WashStart extends GameCore {
         // load resources
         renderer = new TileMapRenderer();
         renderer.setBackground(
-            resourceManager.loadImage("background.png"));
+            resourceManager.loadImage("background.jpg"));
 
         // load first map
         map = resourceManager.loadNextMap();

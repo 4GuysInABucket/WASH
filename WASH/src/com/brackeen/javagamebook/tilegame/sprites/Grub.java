@@ -6,6 +6,8 @@ import com.brackeen.javagamebook.graphics.Animation;
  * A Grub is a Creature that moves slowly on the ground.
  */
 public class Grub extends Creature {
+    
+    private int vidas;
 
     /**
      * Constructor
@@ -23,8 +25,16 @@ public class Grub extends Creature {
         Animation jumpingLeft, Animation jumpingRight)
     {
         super(left, right, deadLeft, deadRight, standingLeft, standingRight, jumpingLeft, jumpingRight);
+        this.vidas = 3;
     }
-
+    
+    public void setVidas(int v){
+        this.vidas = v;
+    }
+    
+    public int getVidas(){
+        return this.vidas;
+    }
     /**
      * Get Max Speed
      * @return float
