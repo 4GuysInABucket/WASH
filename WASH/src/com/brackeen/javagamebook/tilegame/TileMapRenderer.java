@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Iterator;
 
 import com.brackeen.javagamebook.graphics.Sprite;
-import static com.brackeen.javagamebook.tilegame.WashStart.bullets;
+import com.brackeen.javagamebook.tilegame.sprites.Bullet;
 import com.brackeen.javagamebook.tilegame.sprites.Creature;
 
 /**
@@ -153,8 +153,15 @@ public class TileMapRenderer {
         Iterator i = map.getSprites();
         while (i.hasNext()) {
             Sprite sprite = (Sprite)i.next();
-            int x = Math.round(sprite.getX()) + offsetX;
-            int y = Math.round(sprite.getY()) + offsetY;
+            int x;
+            int y;
+            if(sprite instanceof Bullet){
+                x = Math.round(sprite.getX()) + offsetX;
+                y = Math.round(sprite.getY()) + offsetY;
+            }else{
+               x = Math.round(sprite.getX()) + offsetX;
+               y = Math.round(sprite.getY()) + offsetY; 
+            }
             g.drawImage(sprite.getImage(), x, y, null);
 
             // wake up the creature when it's on screen

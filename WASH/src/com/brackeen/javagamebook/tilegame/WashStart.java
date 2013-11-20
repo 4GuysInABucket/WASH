@@ -244,9 +244,11 @@ public class WashStart extends GameCore {
                 if(player.isFiring()){
                     long elapsed = (System.nanoTime() - player.getBulletTimer())/1000000;
                     if(elapsed > player.getBulletDelay()){
+                        
                         bullets.add(new Bullet(bulletAnim, angle,
-                                player.getX()+bulletOffset+TileMapRenderer.offsetX,
-                                player.getY()-player.getHeight()/2-16));
+                                player.getX()+bulletOffset,
+                                player.getY()+player.getHeight()/2-16));
+                        map.addSprite(bullets.get(bullets.size()-1));
                         player.setBulletTimer(System.nanoTime());
                     }
                 }
@@ -277,9 +279,11 @@ public class WashStart extends GameCore {
             if (!bPause){
                 renderer.draw(g, map,
                 screen.getWidth(), screen.getHeight());
+                /*
                 for(int j = 0; j < bullets.size(); j++){
                     bullets.get(j).draw(g);
                 }
+                */
 
                 for (int i = 0; i < lives; i++) {
                     g.drawImage(iLives, i*60+5, 10, null);
@@ -458,6 +462,7 @@ public class WashStart extends GameCore {
             for(int j = 0; j < bullets.size(); j++){
                 boolean remove = bullets.get(j).updateBullet(elapsedTime);
                 if(remove){
+                    map.removeSprite(bullets.get(j));
                     bullets.remove(j);
                     j--;
                 } 
@@ -541,6 +546,9 @@ public class WashStart extends GameCore {
             }
             creature.collideVertical();
         }
+        if (creature instanceof Grub) {
+            checkBulletCollision((Grub)creature);
+        }
     }
     
     /**
@@ -584,10 +592,35 @@ public class WashStart extends GameCore {
     }
     
     /**
+     * Checks for Player collision with other Sprites. If
+     * canKill is true, collisions with Creatures will kill
+     * them.
+     * 
+     * @param player  Player
+     * @param canKill  If sprite can kill player
+     */
+    public void checkBulletCollision(Grub badguy)
+    {
+
+        // check for player collision with other sprites
+        Sprite collisionSprite = getSpriteCollision(badguy);
+        if (collisionSprite instanceof Bullet) {
+          
+                Bullet bullet = (Bullet)collisionSprite;
+                soundManager.play(boopSound);
+                badguy.setState(Creature.STATE_DYING);
+                map.removeSprite(bullet);
+                
+                score+=100;
+            
+        }
+    }
+    
+    /**
      * Checks for Grub collision with bullets. Bullets kill grub.
      * 
      * @param grub Grub
-     * @param bullets Bullet
+     * @param bullet Bullet
      */
     public void checkBulletCollision()
     {
@@ -596,6 +629,8 @@ public class WashStart extends GameCore {
             if(collisionSprite instanceof Grub || collisionSprite instanceof Fly){
                 Creature badguy = (Creature)collisionSprite;
                 badguy.setState(Creature.STATE_DYING);
+                map.removeSprite(bullets.get(i));
+                bullets.remove(i);
                 score+=100;
             }
         }
