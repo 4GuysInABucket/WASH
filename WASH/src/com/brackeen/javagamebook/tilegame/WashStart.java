@@ -89,11 +89,14 @@ public class WashStart extends GameCore {
     
     public static int lives;
     public static int score;
+    
+    public static Image iPause;
+    public static Image iGameOver;
+    public static Image iLives;
 
     /**
      * Initializes Game and variables.
      */
-    
     public void init() {
         super.init();
 
@@ -131,6 +134,10 @@ public class WashStart extends GameCore {
         score = 0;
         
         bPause = false;
+        
+        iPause = ResourceManager.loadImage("pause.png");
+        iGameOver = ResourceManager.loadImage("gameover.jpg");
+        iLives = ResourceManager.loadImage("toothbrush.png");
     }
 
 
@@ -170,6 +177,9 @@ public class WashStart extends GameCore {
         inputManager.mapToKey(restart, KeyEvent.VK_R);
     }
     
+    /**
+     * Reinitializes variables, in order to restart the game.
+     */
     private void restartGame() {
         
         map = resourceManager.reloadMap();
@@ -184,7 +194,6 @@ public class WashStart extends GameCore {
      * Checks input if player is alive
      * @param elapsedTime  Time elapsed
      */
-
     private void checkInput(long elapsedTime) {
 
         if (exit.isPressed()) {
@@ -243,9 +252,11 @@ public class WashStart extends GameCore {
      * Draw Method
      * @param g  Graphics2D
      */
-
     public void draw(Graphics2D g) {
-        if (lives>=0) {
+        
+        Window window = ScreenManager.device.getFullScreenWindow();
+        
+        if (lives>0) {
             if (!bPause){
                 renderer.draw(g, map,
                 screen.getWidth(), screen.getHeight());
@@ -253,28 +264,31 @@ public class WashStart extends GameCore {
                     bullets.get(j).draw(g);
                 }
 
-                g.drawString("Lives: " + lives, 5, 25);
-                g.drawString("Score: " + score, 5, 50);
+                for (int i = 0; i < lives; i++) {
+                    g.drawImage(iLives, i*60+5, 10, null);
+                }
+                
+                g.drawString("Score: " + score, 5, 60);
             }
             else {
-                g.drawString("PAUSE", 50, 50);
+                g.drawImage(iPause, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
             }
             
         }
         else {
-            g.drawString("GAME OVER", 50, 50);
+            g.drawImage(iGameOver, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
         }
     }
-
-
+    
     /**
      * Gets the current map.
      */
     public TileMap getMap() {
         return map;
     }
-
-
+    
     /**
      * Turns on/off drum playback in the midi music (track 1).
      */
@@ -285,7 +299,6 @@ public class WashStart extends GameCore {
                 !sequencer.getTrackMute(DRUM_TRACK));
         }
     }
-
     
     /**
      * Gets the tile that a Sprites collides with. Only the
@@ -330,7 +343,6 @@ public class WashStart extends GameCore {
         return null;
     }
 
-
     /**
         Checks if two Sprites collide with one another. Returns
         false if the two Sprites are the same. Returns false if
@@ -362,8 +374,7 @@ public class WashStart extends GameCore {
             s1y < s2y + s2.getHeight() &&
             s2y < s1y + s1.getHeight());
     }
-
-
+    
     /**
      * Gets the Sprite that collides with the specified Sprite,
      * or null if no Sprite collides with the specified Sprite.
@@ -386,8 +397,7 @@ public class WashStart extends GameCore {
         // no collision found
         return null;
     }
-
-
+    
     /**
      * Updates Animation, position, and velocity of all Sprites
      * in the current map.
@@ -438,8 +448,7 @@ public class WashStart extends GameCore {
             checkBulletCollision();
         }
     }
-
-
+    
     /**
      * Updates the creature, applying gravity for creatures that
      * aren't flying, and checks collisions.
@@ -505,8 +514,7 @@ public class WashStart extends GameCore {
             creature.collideVertical();
         }
     }
-
-
+    
     /**
      * Checks for Player collision with other Sprites. If
      * canKill is true, collisions with Creatures will kill
@@ -564,8 +572,7 @@ public class WashStart extends GameCore {
             }
         }
     }
-
-
+    
     /**
      * Gives the player the speicifed power up and removes it
      * from the map.
