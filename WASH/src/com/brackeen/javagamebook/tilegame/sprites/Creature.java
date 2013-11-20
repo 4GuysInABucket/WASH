@@ -78,8 +78,8 @@ public abstract class Creature extends Sprite {
         state = STATE_NORMAL;
         standing = 1;
     }
-    public Creature(Animation anim){
-        super(anim);
+    public Creature(Animation anim, float x, float y){
+        super(anim, x, y);
     }
 
     /**

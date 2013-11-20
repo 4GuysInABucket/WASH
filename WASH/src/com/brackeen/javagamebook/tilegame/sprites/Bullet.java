@@ -26,6 +26,7 @@ package com.brackeen.javagamebook.tilegame.sprites;
 import com.brackeen.javagamebook.tilegame.WashStart;
 import com.brackeen.javagamebook.graphics.Sprite;
 import com.brackeen.javagamebook.graphics.Animation;
+import com.brackeen.javagamebook.tilegame.TileMapRenderer;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -33,54 +34,43 @@ import java.awt.Graphics2D;
  *
  * @author JLo
  */
-public class Bullet extends Creature{
+public class Bullet extends Sprite{
     
-    //Variables
-    private float x;
-    private float y;
     private int r;
     
-    private double dx;
-    private double dy;
+    private double ddx;
+    private double ddy;
     private double rad;
     private double speed;
+    private boolean live;
     
     private Color color1;
     
     //Constructor
     public Bullet(Animation anim, double angle, float x, float y){
         
-        super(anim);
+        super(anim, x, y);
         
-        this.x = x;
-        this.y = y;
         r=6;
         
         rad = Math.toRadians(angle);
         speed = 2;
-        dx = Math.cos(rad) * speed;
-        dy = Math.sin(rad) * speed;
+        ddx = Math.cos(rad) * speed;
+        ddy = Math.sin(rad) * speed;
         
         color1 = Color.BLUE;
+        live=false;
         
-    }
-    
-    public float getX(){
-        return this.x;
-    }
-    
-    public float getY(){
-        return this.y;
     }
     
     public boolean updateBullet(long elapsedTime){
-        x += dx;
-        y += dy;
+        this.setX(this.getX()+(float)ddx);
+        this.setY(this.getY()+(float)ddy);
         
-        anim.update(elapsedTime);
+        //anim.update(elapsedTime);
         
-        if(x < -r || x > WashStart.screen.getWidth() + r ||
-                y < -r || y > WashStart.screen.getHeight() + r){
+        if(this.getX() < -r || this.getX() > WashStart.screen.getWidth() - TileMapRenderer.offsetX + r ||
+                this.getY() < -r || this.getY() > WashStart.screen.getHeight() + r){
             return true;
         }
         
@@ -89,10 +79,17 @@ public class Bullet extends Creature{
         
     }
     
+    public double getSpeed(){
+        return this.speed;
+    }
+    public void setLive(boolean l){
+        this.live = l;
+    }
+    
     public void draw(Graphics2D g){
         //g.setColor(color1);
         //g.fillOval((int)(x - r), (int)(y - r), 2 * r, 2 * r);
-        g.drawImage(this.getImage(), Math.round(this.x), Math.round(this.y), null);
+        g.drawImage(this.getImage(), Math.round(this.getX()), Math.round(this.getY()), null);
     }
     
 }

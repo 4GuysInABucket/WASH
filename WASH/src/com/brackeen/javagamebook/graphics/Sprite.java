@@ -22,6 +22,16 @@ public class Sprite {
     public Sprite(Animation anim) {
         this.anim = anim;
     }
+    
+    /**
+     * Creates a new Sprite object with the specified Animation.
+     * @param anim the Animation of the Sprite
+     */
+    public Sprite(Animation anim, float x, float y) {
+        this.anim = anim;
+        this.x = x;
+        this.y = y;
+    }
 
     /**
      * Updates this Sprite's Animation and its position based
