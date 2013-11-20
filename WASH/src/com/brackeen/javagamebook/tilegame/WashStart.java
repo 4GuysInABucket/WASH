@@ -3,7 +3,7 @@
  * @author Hilce Estefanía Larsen Ruiz
  * @author Martha Iliana García Hinojosa
  * @author Carlos Enrique Alavez García
- * @version alpha
+ * @version beta
  */
 
 /*
@@ -47,6 +47,17 @@ import com.brackeen.javagamebook.test.GameCore;
 import static com.brackeen.javagamebook.test.GameCore.screen;
 import com.brackeen.javagamebook.tilegame.sprites.*;
 
+import java.util.LinkedList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * WashStart manages all parts of the game.
  */
@@ -89,6 +100,9 @@ public class WashStart extends GameCore {
     
     public static int lives;
     public static int score;
+    private LinkedList<Integer> scorelist; 
+    private String fileName;
+    private String[] arr;
     
     public static Image iPause;
     public static Image iGameOver;
@@ -136,11 +150,13 @@ public class WashStart extends GameCore {
         bPause = false;
         
         iPause = ResourceManager.loadImage("pause.png");
-        iGameOver = ResourceManager.loadImage("gameover.jpg");
+        iGameOver = ResourceManager.loadImage("gameover.png");
         iLives = ResourceManager.loadImage("toothbrush.png");
+        
+        fileName = "scores.txt";
+        scorelist = new LinkedList<Integer>();
     }
-
-
+    
     /**
      * Closes any resources used by the WashStart.
      */
@@ -174,7 +190,7 @@ public class WashStart extends GameCore {
         inputManager.mapToKey(fire, KeyEvent.VK_SPACE);
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
         inputManager.mapToKey(pause, KeyEvent.VK_P);
-        inputManager.mapToKey(restart, KeyEvent.VK_R);
+        inputManager.mapToKey(restart, KeyEvent.VK_ENTER);
     }
     
     /**
@@ -188,6 +204,8 @@ public class WashStart extends GameCore {
         score = 0;
         
         bPause = false;
+        
+        scorelist = new LinkedList<Integer>();
     }
     
     /**
@@ -243,7 +261,8 @@ public class WashStart extends GameCore {
                 bPause = !bPause;
             }
             
-            if (restart.isPressed()) {
+            
+            if (lives<=0 && restart.isPressed()) {
                 restartGame();
             }
         }
@@ -273,6 +292,8 @@ public class WashStart extends GameCore {
                 }
                 
                 g.drawString("Score: " + score, 5, 60);
+                
+                g.drawString("list: " + scorelist.size(), 5, 80);
             }
             else {
                 g.drawImage(iPause, 0, 0,
@@ -452,6 +473,19 @@ public class WashStart extends GameCore {
             }
             checkBulletCollision();
         }
+        
+        if (lives<=0) {
+            scorelist.add(score);
+            
+            try {
+                readFile();
+                scorelist.add(score);
+                saveFile();
+            } catch (IOException ex) {
+                System.out.println("Error in " + ex.toString());
+            }
+        }
+        
     }
     
     /**
@@ -635,5 +669,41 @@ public class WashStart extends GameCore {
             map = resourceManager.loadNextMap();
         }
     }
-
+    
+    /**
+     * Reads the scores' file, to get the current saved score list.
+     * @throws IOException 
+     */
+    public void readFile() throws IOException {
+        BufferedReader fileIn;
+        try {
+            fileIn = new BufferedReader(new FileReader(fileName));
+        } catch (FileNotFoundException e){
+            File points = new File(fileName);
+            PrintWriter fileOut = new PrintWriter(points);
+            fileOut.println("0");
+            fileOut.close();
+            fileIn = new BufferedReader(new FileReader(fileName));
+        }
+        String dato = fileIn.readLine();
+        while(dato != null) {
+            int number = (Integer.parseInt(dato));
+            scorelist.add(number);
+            dato = fileIn.readLine();
+        }
+        fileIn.close();
+        }
+    
+    /**
+     * Saves the updated score list into the file.
+     * @throws IOException 
+     */
+    public void saveFile() throws IOException {
+                                                          
+        PrintWriter fileOut = new PrintWriter(new FileWriter(fileName));
+        for (int i = 0; i < scorelist.size(); i++) {
+            fileOut.println(scorelist.get(i));
+        }
+        fileOut.close();
+    }
 }
