@@ -292,8 +292,6 @@ public class WashStart extends GameCore {
                 }
                 
                 g.drawString("Score: " + score, 5, 60);
-                
-                g.drawString("list: " + scorelist.size(), 5, 80);
             }
             else {
                 g.drawImage(iPause, 0, 0,
