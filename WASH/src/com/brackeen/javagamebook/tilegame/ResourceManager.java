@@ -340,7 +340,23 @@ public class ResourceManager {
             loadImage("salvado14.png"),
             loadImage("salvado15.png"),
             loadImage("salvado16.png"),
-            loadImage("salvado17.png")//49
+            loadImage("salvado17.png"),//49
+            loadImage("menossucio1.png"),//50
+            loadImage("menossucio2.png"),
+            loadImage("menossucio3.png"),
+            loadImage("menossucio4.png"),
+            loadImage("menossucio5.png"),
+            loadImage("menossucio6.png"),
+            loadImage("menossucio7.png"),
+            loadImage("menossucio8.png"),//57
+            loadImage("mmenossucio1.png"),//58
+            loadImage("mmenossucio2.png"),
+            loadImage("mmenossucio3.png"),
+            loadImage("mmenossucio4.png"),
+            loadImage("mmenossucio5.png"),
+            loadImage("mmenossucio6.png"),
+            loadImage("mmenossucio7.png"),
+            loadImage("mmenossucio8.png"),//65
         };
 
         images[1] = new Image[images[0].length];
@@ -395,10 +411,18 @@ public class ResourceManager {
                 images[1][40],images[1][41],images[1][42],images[1][43],
                 images[1][44],images[1][45],images[1][46],images[1][47],
                 images[1][48]);
-        grubAnim[4] = createPlayerStanding(images[0][25], images[0][26]);
-        grubAnim[5] = createPlayerStanding(images[1][25], images[1][26]);
-        grubAnim[6] = createPlayerStanding(images[0][25], images[0][26]);
-        grubAnim[7] = createPlayerStanding(images[1][25], images[1][26]);
+        grubAnim[4] = createGrubAnim(
+                images[0][49], images[0][50],images[0][51], images[0][52],
+                    images[0][53], images[0][54],images[0][55], images[0][56]);
+        grubAnim[5] = createGrubAnim(
+                images[1][49], images[1][50],images[1][51], images[1][52],
+                    images[1][53], images[1][54],images[1][55], images[1][56]);
+        grubAnim[6] = createGrubAnim(
+                images[0][57], images[0][58],images[0][59], images[0][60],
+                    images[0][61], images[0][62],images[0][63], images[0][64]);
+        grubAnim[7] = createGrubAnim(
+                images[1][57], images[1][58],images[1][59], images[1][60],
+                    images[1][61], images[1][62],images[1][63], images[1][64]);
 
         // create creature sprites
         playerSprite = new Player(playerAnim[0], playerAnim[1],
@@ -406,7 +430,7 @@ public class ResourceManager {
         flySprite = new Fly(flyAnim[0], flyAnim[1],
             flyAnim[2], flyAnim[3], flyAnim[4], flyAnim[5], flyAnim[4], flyAnim[5]);
         grubSprite = new Grub(grubAnim[0], grubAnim[1],
-            grubAnim[2], grubAnim[3], grubAnim[2], grubAnim[3], grubAnim[4], grubAnim[5]);
+            grubAnim[2], grubAnim[3], grubAnim[4], grubAnim[5], grubAnim[6], grubAnim[7]);
     }
 
     /**

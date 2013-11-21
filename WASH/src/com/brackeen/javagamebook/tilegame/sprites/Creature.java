@@ -30,6 +30,7 @@ public abstract class Creature extends Sprite {
     private int standing;
     private int state;
     private long stateTime;
+    private int vidas;
 
     /**
      * Creates a new Creature with the specified Animations.
@@ -77,6 +78,7 @@ public abstract class Creature extends Sprite {
         this.jumpingRight = jumpingRight;
         state = STATE_NORMAL;
         standing = 1;
+        vidas = 3;
     }
     public Creature(Animation anim, float x, float y){
         super(anim, x, y);
@@ -115,6 +117,14 @@ public abstract class Creature extends Sprite {
      */
     public float getMaxSpeed() {
         return 0;
+    }
+    
+    public void setVidas(int v){
+        this.vidas = v;
+    }
+    
+    public int getVidas(){
+        return this.vidas;
     }
 
 
@@ -209,28 +219,47 @@ public abstract class Creature extends Sprite {
         }else if(Player.onGround == false && getVelocityX() > 0){
             newAnim = jumpingRight;
             standing = 1;
-        }else if(Player.onGround == false && getVelocityX() == 0 && standing == 0 ){
+        }else if(Player.onGround == false && getVelocityX() == 0 && standing == 0 && state == STATE_NORMAL ){
             newAnim = jumpingLeft;
             standing = 0;
-        }else if(Player.onGround == false && getVelocityX() == 0 && standing == 1){
+        }else if(Player.onGround == false && getVelocityX() == 0 && standing == 1 && state == STATE_NORMAL ){
             newAnim = jumpingRight;
             standing = 1;
-        }else if (getVelocityX() < 0) {
+        }else if (getVelocityX() == 0 && standing == 0 && state == STATE_NORMAL){
+            newAnim = standingLeft;
+        }else if (getVelocityX() == 0 && standing == 1 && state == STATE_NORMAL){
+            newAnim = standingRight;
+        }else if (getVelocityX() < 0 && this.vidas == 3) {
             newAnim = left;
             standing = 0;
-        }else if (getVelocityX() > 0) {
+        }else if (getVelocityX() > 0 && this.vidas == 3) {
             newAnim = right;
             standing = 1;
-        }else if (getVelocityX() == 0 && standing == 0){
+        }else if (getVelocityX() < 0 && this.vidas == 2) {
             newAnim = standingLeft;
-        }else if (getVelocityX() == 0 && standing == 1){
+            standing = 0;
+        }else if (getVelocityX() > 0 && this.vidas == 2) {
             newAnim = standingRight;
+            standing = 1;
+        }else if (getVelocityX() < 0 && this.vidas == 1) {
+            newAnim = jumpingLeft;
+            standing = 0;
+        }else if (getVelocityX() > 0 && this.vidas == 1) {
+            newAnim = jumpingRight;
+            standing = 1;
         }
         
         if (state == STATE_DYING && newAnim == left) {
             newAnim = deadLeft;
         }
         else if (state == STATE_DYING && newAnim == right) {
+            newAnim = deadRight;
+        }
+        
+        if (state == STATE_DYING && newAnim == jumpingLeft) {
+            newAnim = deadLeft;
+        }
+        else if (state == STATE_DYING && newAnim == jumpingRight) {
             newAnim = deadRight;
         }
 

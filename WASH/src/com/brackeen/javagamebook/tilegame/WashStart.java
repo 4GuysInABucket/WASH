@@ -604,10 +604,13 @@ public class WashStart extends GameCore {
             Sprite collisionSprite = getSpriteCollision(bullets.get(i));
             if(collisionSprite instanceof Grub || collisionSprite instanceof Fly){
                 Creature badguy = (Creature)collisionSprite;
-                badguy.setState(Creature.STATE_DYING);
+                badguy.setVidas(badguy.getVidas()-1);
                 map.removeSprite(bullets.get(i));
                 bullets.remove(i);
-                score+=100;
+                if(badguy.getVidas()==0){
+                    badguy.setState(Creature.STATE_DYING);
+                    score+=100;
+                }
             }
         }
     }
