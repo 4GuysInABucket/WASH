@@ -552,9 +552,6 @@ public class WashStart extends GameCore {
             }
             creature.collideVertical();
         }
-        if (creature instanceof Grub) {
-            checkBulletCollision((Grub)creature);
-        }
     }
     
     /**
@@ -596,32 +593,7 @@ public class WashStart extends GameCore {
             }
         }
     }
-    
-    /**
-     * Checks for Player collision with other Sprites. If
-     * canKill is true, collisions with Creatures will kill
-     * them.
-     * 
-     * @param player  Player
-     * @param canKill  If sprite can kill player
-     */
-    public void checkBulletCollision(Grub badguy)
-    {
-
-        // check for player collision with other sprites
-        Sprite collisionSprite = getSpriteCollision(badguy);
-        if (collisionSprite instanceof Bullet) {
-          
-                Bullet bullet = (Bullet)collisionSprite;
-                soundManager.play(boopSound);
-                badguy.setState(Creature.STATE_DYING);
-                map.removeSprite(bullet);
-                
-                score+=100;
-            
-        }
-    }
-    
+     
     /**
      * Checks for Grub collision with bullets. Bullets kill grub.
      * 
