@@ -323,7 +323,24 @@ public class ResourceManager {
             loadImage("sucio5.png"),
             loadImage("sucio6.png"),//30
             loadImage("sucio7.png"),
-            loadImage("sucio8.png")//32
+            loadImage("sucio8.png"),//32
+            loadImage("salvado1.png"),//33
+            loadImage("salvado2.png"),
+            loadImage("salvado3.png"),
+            loadImage("salvado4.png"),
+            loadImage("salvado5.png"),
+            loadImage("salvado6.png"),
+            loadImage("salvado7.png"),
+            loadImage("salvado8.png"),//40
+            loadImage("salvado9.png"),
+            loadImage("salvado10.png"),
+            loadImage("salvado11.png"),
+            loadImage("salvado12.png"),
+            loadImage("salvado13.png"),
+            loadImage("salvado14.png"),
+            loadImage("salvado15.png"),
+            loadImage("salvado16.png"),
+            loadImage("salvado17.png")//49
         };
 
         images[1] = new Image[images[0].length];
@@ -350,9 +367,6 @@ public class ResourceManager {
                     images[i][9]);
             flyAnim[i] = createFlyAnim(
                 images[i][10], images[i][11], images[i][12]);
-            grubAnim[i] = createGrubAnim(
-                images[i][24], images[i][25],images[i][26], images[i][27],
-                    images[i][28], images[i][29],images[i][30], images[i][31]);
         }
         playerAnim[4] = createPlayerStanding(images[0][22], images[0][23]);//standing left
         playerAnim[5] = createPlayerStanding(images[1][22], images[1][23]);//standing right
@@ -363,8 +377,28 @@ public class ResourceManager {
         
         flyAnim[4] = createPlayerStanding(images[0][10], images[0][10]);
         flyAnim[5] = createPlayerStanding(images[1][10], images[1][10]);
+        grubAnim[0] = createGrubAnim(
+                images[0][24], images[0][25],images[0][26], images[0][27],
+                    images[0][28], images[0][29],images[0][30], images[0][31]);
+        grubAnim[1] = createGrubAnim(
+                images[1][24], images[1][25],images[1][26], images[1][27],
+                    images[1][28], images[1][29],images[1][30], images[1][31]);
+        grubAnim[2]= createLimpioAnim(
+                images[0][32],images[0][33],images[0][34],images[0][35],
+                images[0][36],images[0][37],images[0][38],images[0][39],
+                images[0][40],images[0][41],images[0][42],images[0][43],
+                images[0][44],images[0][45],images[0][46],images[0][47],
+                images[0][48]);
+        grubAnim[3]= createLimpioAnim(
+                images[1][32],images[1][33],images[1][34],images[1][35],
+                images[1][36],images[1][37],images[1][38],images[1][39],
+                images[1][40],images[1][41],images[1][42],images[1][43],
+                images[1][44],images[1][45],images[1][46],images[1][47],
+                images[1][48]);
         grubAnim[4] = createPlayerStanding(images[0][25], images[0][26]);
         grubAnim[5] = createPlayerStanding(images[1][25], images[1][26]);
+        grubAnim[6] = createPlayerStanding(images[0][25], images[0][26]);
+        grubAnim[7] = createPlayerStanding(images[1][25], images[1][26]);
 
         // create creature sprites
         playerSprite = new Player(playerAnim[0], playerAnim[1],
@@ -372,7 +406,7 @@ public class ResourceManager {
         flySprite = new Fly(flyAnim[0], flyAnim[1],
             flyAnim[2], flyAnim[3], flyAnim[4], flyAnim[5], flyAnim[4], flyAnim[5]);
         grubSprite = new Grub(grubAnim[0], grubAnim[1],
-            grubAnim[2], grubAnim[3], grubAnim[4], grubAnim[5], grubAnim[4], grubAnim[5]);
+            grubAnim[2], grubAnim[3], grubAnim[2], grubAnim[3], grubAnim[4], grubAnim[5]);
     }
 
     /**
@@ -534,6 +568,39 @@ public class ResourceManager {
         anim.addFrame(getMirrorImage(loadImage("bullet2.png")), 50);
         anim.addFrame(getMirrorImage(loadImage("bullet3.png")), 50);
         
+        return anim;
+    }
+    
+    /**
+     * Create Grub Animation
+     * 
+     * @param img1
+     * @param img2
+     * @return  Animation
+     */
+
+    private Animation createLimpioAnim(Image img1, Image img2, Image img3, Image img4,
+            Image img5, Image img6,Image img7, Image img8, Image img9, Image img10, Image img11, Image img12,
+            Image img13, Image img14,Image img15, Image img16, Image img17) {
+        Animation anim = new Animation();
+        anim.addFrame(img1, 100);
+        anim.addFrame(img2, 100);
+        anim.addFrame(img3, 100);
+        anim.addFrame(img4, 100);
+        anim.addFrame(img5, 100);
+        anim.addFrame(img6, 100);
+        anim.addFrame(img7, 100);
+        anim.addFrame(img8, 100);
+        anim.addFrame(img9, 100);
+        anim.addFrame(img10, 100);
+        anim.addFrame(img11, 100);
+        anim.addFrame(img12, 100);
+        anim.addFrame(img13, 100);
+        anim.addFrame(img14, 100);
+        anim.addFrame(img15, 100);
+        anim.addFrame(img16, 100);
+        anim.addFrame(img17, 600);
+
         return anim;
     }
 
