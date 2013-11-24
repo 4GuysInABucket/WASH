@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 import com.brackeen.javagamebook.graphics.*;
 import com.brackeen.javagamebook.tilegame.sprites.*;
+import java.net.URL;
 
 
 /**
@@ -28,6 +29,7 @@ public class ResourceManager {
     private Sprite goalSprite;
     private Sprite grubSprite;
     private Sprite flySprite;
+    private Font font;
 
     /**
      * Creates a new ResourceManager with the specified
@@ -38,6 +40,14 @@ public class ResourceManager {
         loadTileImages();
         loadCreatureSprites();
         loadPowerUpSprites();
+    }
+    
+    
+    public static Font getFont() throws FontFormatException, IOException{
+        //URL urlFont = ResourceManager.class.getResource("fonts/8bit.ttf");
+        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/8bit.ttf"));
+        return font;
+        
     }
 
 

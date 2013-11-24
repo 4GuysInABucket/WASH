@@ -206,6 +206,7 @@ public class WashStart extends GameCore {
         score = 0;
         
         bPause = false;
+        midiPlayer.setPaused(false);
         
         scorelist = new LinkedList<Integer>();
         bscores = false;
@@ -262,6 +263,7 @@ public class WashStart extends GameCore {
             
             if(pause.isPressed()){
                 bPause = !bPause;
+                midiPlayer.setPaused(bPause);
             }
             
             
@@ -279,6 +281,16 @@ public class WashStart extends GameCore {
     public void draw(Graphics2D g) {
         
         Window window = ScreenManager.device.getFullScreenWindow();
+        Font font;
+        try {
+            font = ResourceManager.getFont();
+            font = font.deriveFont(24f);
+            g.setFont(font);
+        } catch (FontFormatException ex) {
+            Logger.getLogger(WashStart.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WashStart.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if (lives>0) {
             if (!bPause){
@@ -294,7 +306,7 @@ public class WashStart extends GameCore {
                     g.drawImage(iLives, i*60+5, 10, null);
                 }
                 
-                g.drawString("Score: " + score, 5, 60);
+                g.drawString("Puntaje: " + score, 5, 60);
             }
             else {
                 g.drawImage(iPause, 0, 0,
