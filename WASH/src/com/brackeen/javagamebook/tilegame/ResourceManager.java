@@ -58,8 +58,9 @@ public class ResourceManager {
      * @return Image
      */
     public static Image loadImage(String name) {
-        String filename = "images/" + name;
-        return new ImageIcon(filename).getImage();
+        String filename = "/images/" + name;
+        URL urlImg = ResourceManager.class.getResource(filename);
+        return new ImageIcon(urlImg).getImage();
     }
     
     /**
@@ -128,7 +129,7 @@ public class ResourceManager {
             currentMap++;
             try {
                 map = loadMap(
-                    "maps/map" + currentMap + ".txt");
+                    "/maps/map" + currentMap + ".txt");
             }
             catch (IOException ex) {
                 if (currentMap == 1) {
@@ -152,7 +153,7 @@ public class ResourceManager {
     public TileMap reloadMap() {
         try {
             return loadMap(
-                "maps/map" + currentMap + ".txt");
+                "/maps/map" + currentMap + ".txt");
         }
         catch (IOException ex) {
             ex.printStackTrace();
@@ -174,10 +175,13 @@ public class ResourceManager {
         ArrayList lines = new ArrayList();
         int width = 0;
         int height = 0;
-
+        InputStream ipStrm = ResourceManager.class.getResourceAsStream(filename);
+        
+    InputStreamReader ipStrmRdr = new InputStreamReader(ipStrm);
+    BufferedReader reader = new BufferedReader(ipStrmRdr);
         // read every line in the text file into the list
-        BufferedReader reader = new BufferedReader(
-            new FileReader(filename));
+        //BufferedReader reader = new BufferedReader(
+        //    new FileReader(urlMap.toString()));
         while (true) {
             String line = reader.readLine();
             // no more lines to read
@@ -283,8 +287,8 @@ public class ResourceManager {
         char ch = 'A';
         while (true) {
             String name = "tile_" + ch + ".png";
-            File file = new File("images/" + name);
-            if (!file.exists()) {
+            URL urlImg = ResourceManager.class.getResource("/images/" + name);
+            if (urlImg==null){
                 break;
             }
             tiles.add(loadImage(name));
