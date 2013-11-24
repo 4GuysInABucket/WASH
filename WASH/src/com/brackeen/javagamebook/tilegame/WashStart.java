@@ -305,6 +305,10 @@ public class WashStart extends GameCore {
         else {
             g.drawImage(iGameOver, 0, 0,
                     window.getWidth(), window.getHeight(), null);
+            g.drawString("Puntajes más altos", 50, 50);
+            for (int i = 0; i<5 && i<scorelist.size(); i++) {
+                g.drawString("#" + (i+1) + ": " + scorelist.get(i), 100, 100+50*i);
+            }
         }
     }
     
@@ -675,9 +679,12 @@ public class WashStart extends GameCore {
      * @throws IOException 
      */
     public void saveFile() throws IOException {
-                                                          
+        
+        Collections.sort(scorelist);
+        Collections.reverse(scorelist);
+        
         PrintWriter fileOut = new PrintWriter(new FileWriter(fileName));
-        for (int i = 0; i < scorelist.size(); i++) {
+        for (int i = 0; i<5 && i<scorelist.size(); i++) {
             fileOut.println(scorelist.get(i));
         }
         fileOut.close();
