@@ -104,6 +104,7 @@ public class WashStart extends GameCore {
     private LinkedList<Integer> scorelist; 
     private String fileName;
     private String[] arr;
+    private boolean bscores;
     
     private Image iPause;
     private Image iGameOver;
@@ -158,6 +159,7 @@ public class WashStart extends GameCore {
         
         fileName = "scores.txt";
         scorelist = new LinkedList<Integer>();
+        bscores = false;
     }
     
     /**
@@ -209,6 +211,7 @@ public class WashStart extends GameCore {
         bPause = false;
         
         scorelist = new LinkedList<Integer>();
+        bscores = false;
     }
     
     /**
@@ -474,16 +477,18 @@ public class WashStart extends GameCore {
             checkBulletCollision();
         }
         
-        if (lives<=0) {
+        if (lives<=0 && !bscores) {
+            
             scorelist.add(score);
             
             try {
                 readFile();
-                scorelist.add(score);
                 saveFile();
+                bscores = true;
             } catch (IOException ex) {
                 System.out.println("Error in " + ex.toString());
             }
+            
         }
         
     }
