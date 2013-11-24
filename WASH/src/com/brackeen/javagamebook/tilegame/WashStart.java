@@ -234,7 +234,7 @@ public class WashStart extends GameCore {
                 angle=0;
                 bulletOffset=player.getWidth()/2;
             }
-            if (jump.isPressed()) {
+            if (jump.isPressed() && !bPause) {
                 player.jump(false);
             }
             player.setVelocityX(velocityX);
@@ -245,7 +245,7 @@ public class WashStart extends GameCore {
                 bulletAnim = ResourceManager.bulletAnimationRight();
             }
                                    
-            if(fire.isPressed()){
+            if(fire.isPressed() && !bPause){
                 if(player.isFiring()){
                     long elapsed = (System.nanoTime() - player.getBulletTimer())/1000000;
                     if(elapsed > player.getBulletDelay()){
