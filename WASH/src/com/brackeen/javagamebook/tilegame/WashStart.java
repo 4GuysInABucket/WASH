@@ -92,6 +92,7 @@ public class WashStart extends GameCore {
     private GameAction fire;
     private GameAction pause;
     private boolean bPause;
+    private boolean bGameStart;
     private GameAction restart;
     public static ArrayList<Bullet> bullets;
     private int angle;
@@ -104,9 +105,10 @@ public class WashStart extends GameCore {
     private String fileName;
     private String[] arr;
     
-    public static Image iPause;
-    public static Image iGameOver;
-    public static Image iLives;
+    private Image iPause;
+    private Image iGameOver;
+    private Image iLives;
+    private Image iMenu;
 
     /**
      * Initializes Game and variables.
@@ -148,6 +150,7 @@ public class WashStart extends GameCore {
         score = 0;
         
         bPause = false;
+        bGameStart = false;
         
         iPause = ResourceManager.loadImage("pause.png");
         iGameOver = ResourceManager.loadImage("gameover.png");
@@ -276,32 +279,31 @@ public class WashStart extends GameCore {
     public void draw(Graphics2D g) {
         
         Window window = ScreenManager.device.getFullScreenWindow();
-        
-        if (lives>0) {
-            if (!bPause){
-                renderer.draw(g, map,
-                screen.getWidth(), screen.getHeight());
-                /*
-                for(int j = 0; j < bullets.size(); j++){
-                    bullets.get(j).draw(g);
-                }
-                */
+        if(bGameStart){
+            if (lives>0) {
+                if (!bPause){
+                    renderer.draw(g, map,
+                    screen.getWidth(), screen.getHeight());
 
-                for (int i = 0; i < lives; i++) {
-                    g.drawImage(iLives, i*60+5, 10, null);
+                    for (int i = 0; i < lives; i++) {
+                        g.drawImage(iLives, i*60+5, 10, null);
+                    }
+
+                    g.drawString("Score: " + score, 5, 60);
                 }
-                
-                g.drawString("Score: " + score, 5, 60);
+                else {
+                    g.drawImage(iPause, 0, 0,
+                        window.getWidth(), window.getHeight(), null);
+                }
+
             }
             else {
-                g.drawImage(iPause, 0, 0,
-                    window.getWidth(), window.getHeight(), null);
+                g.drawImage(iGameOver, 0, 0,
+                        window.getWidth(), window.getHeight(), null);
             }
-            
-        }
-        else {
-            g.drawImage(iGameOver, 0, 0,
-                    window.getWidth(), window.getHeight(), null);
+        }else{
+            g.drawImage(iMenu, 0, 0,
+                        window.getWidth(), window.getHeight(), null);
         }
     }
     
