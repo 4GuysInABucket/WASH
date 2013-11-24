@@ -1,6 +1,7 @@
 package com.brackeen.javagamebook.sound;
 
 import java.io.*;
+import java.net.URL;
 import javax.sound.midi.*;
 
 /**
@@ -38,7 +39,8 @@ public class MidiPlayer implements MetaEventListener {
      */
     public Sequence getSequence(String filename) {
         try {
-            return getSequence(new FileInputStream(filename));
+            URL urlSound = MidiPlayer.class.getResource(filename);
+            return getSequence(urlSound.openStream());
         }
         catch (IOException ex) {
             ex.printStackTrace();

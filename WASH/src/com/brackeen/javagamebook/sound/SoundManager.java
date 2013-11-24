@@ -5,6 +5,7 @@ import javax.sound.sampled.*;
 import javax.sound.midi.*;
 import com.brackeen.javagamebook.util.ThreadPool;
 import com.brackeen.javagamebook.util.LoopingByteInputStream;
+import java.net.URL;
 
 
 /**
@@ -193,8 +194,9 @@ public class SoundManager extends ThreadPool {
      */
     public AudioInputStream getAudioInputStream(String filename) {
         try {
+            URL urlSound = SoundManager.class.getResource(filename);
             return getAudioInputStream(
-                new FileInputStream(filename));
+                urlSound.openStream());
         }
         catch (IOException ex) {
             ex.printStackTrace();
