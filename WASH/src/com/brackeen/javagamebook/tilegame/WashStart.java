@@ -92,6 +92,7 @@ public class WashStart extends GameCore {
     private GameAction fire;
     private GameAction pause;
     private boolean bPause;
+    private boolean bMenu;
     private GameAction restart;
     public static ArrayList<Bullet> bullets;
     private int angle;
@@ -108,6 +109,12 @@ public class WashStart extends GameCore {
     public static Image iPause;
     public static Image iGameOver;
     public static Image iLives;
+    public static Image iMenu;
+    public static Image iIntro;
+    public static Image iCredits;
+    public static Image iBoy;
+    public static Image iGirl;
+    
 
     /**
      * Initializes Game and variables.
@@ -153,10 +160,12 @@ public class WashStart extends GameCore {
         iPause = ResourceManager.loadImage("pause.png");
         iGameOver = ResourceManager.loadImage("gameover.png");
         iLives = ResourceManager.loadImage("toothbrush.png");
+        iMenu = ResourceManager.loadImage("menu.png");
         
         fileName = "scores.txt";
         scorelist = new LinkedList<Integer>();
         bscores = false;
+        bMenu = true;
     }
     
     /**
@@ -267,9 +276,17 @@ public class WashStart extends GameCore {
             }
             
             
-            if (lives<=0 && restart.isPressed()) {
-                restartGame();
+            
+            if (restart.isPressed()) {
+                if (bMenu) {
+                    bMenu = false;
+                    restartGame();
+                }
+                else if (lives<=0) {
+                    restartGame();
+                }
             }
+            
         }
 
     }
@@ -292,7 +309,12 @@ public class WashStart extends GameCore {
             Logger.getLogger(WashStart.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (lives>0) {
+        if (bMenu) {
+            g.drawImage(iMenu, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+        }
+        
+        else if (lives>0) {
             if (!bPause){
                 renderer.draw(g, map,
                 screen.getWidth(), screen.getHeight());
