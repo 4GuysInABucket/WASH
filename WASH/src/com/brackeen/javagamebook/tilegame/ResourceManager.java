@@ -44,8 +44,8 @@ public class ResourceManager {
     
     
     public static Font getFont() throws FontFormatException, IOException{
-        //URL urlFont = ResourceManager.class.getResource("fonts/8bit.ttf");
-        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/8bit.ttf"));
+        URL urlFont = ResourceManager.class.getResource("/fonts/8bit.ttf");
+        Font font = Font.createFont(Font.TRUETYPE_FONT, urlFont.openStream());
         return font;
         
     }
