@@ -116,6 +116,8 @@ public class WashStart extends GameCore {
     
     public static Image iIntro;
     public static Image iIntro2;
+    public static Image iIntro3;
+    public static Image iIntro4;
     public static Image iMenu;
     public static Image iInstr;
     public static Image iCredits;
@@ -177,7 +179,7 @@ public class WashStart extends GameCore {
         lives = 3;
         score = 0;
         municiones = 3;
-        introCounter = 400000;
+        introCounter = 2500;
         
         
         
@@ -185,8 +187,10 @@ public class WashStart extends GameCore {
         iLives = ResourceManager.loadImage("toothbrush.png");
         
         
-        iIntro = ResourceManager.loadImage("intro1.png");
-        iIntro = ResourceManager.loadImage("intro2.png");
+        iIntro = ResourceManager.loadImage("logo.jpg");
+        iIntro2 = ResourceManager.loadImage("intro1.png");
+        iIntro3 = ResourceManager.loadImage("intro2.png");
+        iIntro4 = ResourceManager.loadImage("intro2.png");
         iMenu = ResourceManager.loadImage("menu.png");
         iPause = ResourceManager.loadImage("pause.png");
         iInstr = ResourceManager.loadImage("instr.png");
@@ -379,6 +383,13 @@ public class WashStart extends GameCore {
         }
 
     }
+    
+    private void printSimpleString(Graphics2D g2d, String s, int width, int XPos, int YPos){  
+            int stringLen = (int)  
+                g2d.getFontMetrics().getStringBounds(s, g2d).getWidth();  
+            int start = width/2 - stringLen/2;  
+            g2d.drawString(s, start + XPos, YPos);  
+     }  
 
     /**
      * Draw Method
@@ -398,14 +409,30 @@ public class WashStart extends GameCore {
             Logger.getLogger(WashStart.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (bIntro && introCounter > 0) {
+        if (bIntro && introCounter > 2000) {
             g.drawImage(iIntro, 0, 0,
                     window.getWidth(), window.getHeight(), null);
             introCounter--;
         }
-        else if(bIntro && introCounter <= 0){
+        else if(bIntro && introCounter > 1500){
             g.drawImage(iIntro2, 0, 0,
                     window.getWidth(), window.getHeight(), null);
+            introCounter--;
+        }
+        else if(bIntro && introCounter > 1000){
+            g.drawImage(iIntro3, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+            introCounter--;
+        }
+        else if(bIntro && introCounter > 500){
+            g.drawImage(iIntro4, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+            introCounter--;
+        }
+        else if(bIntro){
+            g.drawImage(iIntro4, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+            printSimpleString(g,"Presiona ENTER Para Continuar",window.getWidth(),0,400);
         }
         else if (bMenu) {
             g.drawImage(iMenu, 0, 0,
@@ -797,6 +824,7 @@ public class WashStart extends GameCore {
             // advance to next map
             soundManager.play(prizeSound,
                 new EchoFilter(2000, .7f), false);
+            municiones = 3;
             map = resourceManager.loadNextMap();
         }
     }
