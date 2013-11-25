@@ -99,6 +99,7 @@ public class WashStart extends GameCore {
     
     public static int lives;
     public static int score;
+    public static int municiones;
     private LinkedList<Integer> scorelist; 
     private String fileName;
     private String[] arr;
@@ -170,6 +171,7 @@ public class WashStart extends GameCore {
         
         lives = 3;
         score = 0;
+        municiones = 3;
         
         
         
@@ -237,6 +239,7 @@ public class WashStart extends GameCore {
         
         lives = 3;
         score = 0;
+        municiones = 3;
         
         bPause = false;
         midiPlayer.setPaused(false);
@@ -283,8 +286,8 @@ public class WashStart extends GameCore {
             if(fire.isPressed() && !bPause){
                 if(player.isFiring()){
                     long elapsed = (System.nanoTime() - player.getBulletTimer())/1000000;
-                    if(elapsed > player.getBulletDelay()){
-                        
+                    if(elapsed > player.getBulletDelay()&&municiones>0){
+                        municiones--;
                         bullets.add(new Bullet(bulletAnim, angle,
                                 player.getX()+bulletOffset,
                                 player.getY()+player.getHeight()/2-16));
@@ -360,6 +363,7 @@ public class WashStart extends GameCore {
                 }
                 
                 g.drawString("Puntaje: " + score, 5, 60);
+                g.drawString("Municiones: " + municiones, 5, 90);
             }
             else {
                 g.drawImage(iPause, 0, 0,
@@ -700,6 +704,7 @@ public class WashStart extends GameCore {
         if (powerUp instanceof PowerUp.Star) {
             // do something here, like give the player points
             score += 50;
+            municiones += 1;
             soundManager.play(prizeSound);
         }
         else if (powerUp instanceof PowerUp.Music) {
