@@ -579,10 +579,17 @@ public class ResourceManager {
 
         // create "star" sprite
         anim = new Animation();
-        anim.addFrame(loadImage("star1.png"), 100);
-        anim.addFrame(loadImage("star2.png"), 100);
-        anim.addFrame(loadImage("star3.png"), 100);
-        anim.addFrame(loadImage("star4.png"), 100);
+        anim.addFrame(loadImage("bubble1.png"), 100);
+        anim.addFrame(loadImage("bubble2.png"), 100);
+        anim.addFrame(loadImage("bubble3.png"), 100);
+        anim.addFrame(loadImage("bubble4.png"), 100);
+        anim.addFrame(loadImage("bubble5.png"), 200);
+        anim.addFrame(loadImage("bubble6.png"), 400);
+        anim.addFrame(loadImage("bubble5.png"), 200);
+        anim.addFrame(loadImage("bubble4.png"), 100);
+        anim.addFrame(loadImage("bubble3.png"), 100);
+        anim.addFrame(loadImage("bubble2.png"), 100);
+        anim.addFrame(loadImage("bubble1.png"), 100);
         coinSprite = new PowerUp.Star(anim);
 
         // create "music" sprite

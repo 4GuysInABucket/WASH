@@ -107,6 +107,7 @@ public class WashStart extends GameCore {
     private String fileName;
     private String[] arr;
     private boolean bscores;
+    private int introCounter;
     
     public static Image iPause;
     public static Image iGameOver;
@@ -114,6 +115,7 @@ public class WashStart extends GameCore {
     public static Image iSound;
     
     public static Image iIntro;
+    public static Image iIntro2;
     public static Image iMenu;
     public static Image iInstr;
     public static Image iCredits;
@@ -175,6 +177,7 @@ public class WashStart extends GameCore {
         lives = 3;
         score = 0;
         municiones = 3;
+        introCounter = 400000;
         
         
         
@@ -182,7 +185,8 @@ public class WashStart extends GameCore {
         iLives = ResourceManager.loadImage("toothbrush.png");
         
         
-        iIntro = ResourceManager.loadImage("intro.png");
+        iIntro = ResourceManager.loadImage("intro1.png");
+        iIntro = ResourceManager.loadImage("intro2.png");
         iMenu = ResourceManager.loadImage("menu.png");
         iPause = ResourceManager.loadImage("pause.png");
         iInstr = ResourceManager.loadImage("instr.png");
@@ -190,7 +194,7 @@ public class WashStart extends GameCore {
         iBoy = ResourceManager.loadImage("chooseboy.png");
         iGirl = ResourceManager.loadImage("choosegirl.png");
         iLevel = ResourceManager.loadImage("levelcomplete.png");
-        iLoose = ResourceManager.loadImage("youloose.png");
+        //iLoose = ResourceManager.loadImage("youloose.png");
         iWin = ResourceManager.loadImage("youwin.png");
                 
         bIntro = true;
@@ -394,8 +398,13 @@ public class WashStart extends GameCore {
             Logger.getLogger(WashStart.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (bIntro) {
+        if (bIntro && introCounter > 0) {
             g.drawImage(iIntro, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+            introCounter--;
+        }
+        else if(bIntro && introCounter <= 0){
+            g.drawImage(iIntro2, 0, 0,
                     window.getWidth(), window.getHeight(), null);
         }
         else if (bMenu) {
