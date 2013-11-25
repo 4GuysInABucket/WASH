@@ -92,6 +92,9 @@ public class WashStart extends GameCore {
     private GameAction fire;
     private GameAction pause;
     private GameAction restart;
+    private GameAction instructions;
+    private GameAction credits;
+    private GameAction sound;
     public static ArrayList<Bullet> bullets;
     private int angle;
     private int bulletOffset;
@@ -179,20 +182,19 @@ public class WashStart extends GameCore {
         iLives = ResourceManager.loadImage("toothbrush.png");
         
         
-        iIntro = ResourceManager.loadImage("menu.png");
+        iIntro = ResourceManager.loadImage("intro.png");
         iMenu = ResourceManager.loadImage("menu.png");
         iPause = ResourceManager.loadImage("pause.png");
-        iInstr = ResourceManager.loadImage("menu.png");
-        iCredits = ResourceManager.loadImage("pause.png");
-        iBoy = ResourceManager.loadImage("menu.png");
-        iGirl = ResourceManager.loadImage("pause.png");
-        iLevel = ResourceManager.loadImage("menu.png");
-        iLoose = ResourceManager.loadImage("pause.png");
-        iWin = ResourceManager.loadImage("menu.png");
+        iInstr = ResourceManager.loadImage("instr.png");
+        iCredits = ResourceManager.loadImage("credits.png");
+        iBoy = ResourceManager.loadImage("chooseboy.png");
+        iGirl = ResourceManager.loadImage("choosegirl.png");
+        iLevel = ResourceManager.loadImage("levelcomplete.png");
+        iLoose = ResourceManager.loadImage("youloose.png");
+        iWin = ResourceManager.loadImage("youwin.png");
                 
         bIntro = true;
         bMenu = false;
-        bPause = false;
         bInstr = false;
         bCredits = false;
         bBoy = false;
@@ -200,6 +202,8 @@ public class WashStart extends GameCore {
         bLevel = false;
         bLoose = false;
         bWin = false;
+        bPause = false;
+        bSound = true;
         
         fileName = "scores.txt";
         scorelist = new LinkedList<Integer>();
@@ -228,7 +232,10 @@ public class WashStart extends GameCore {
         fire = new GameAction("fire");
         pause = new GameAction("pause", GameAction.DETECT_INITAL_PRESS_ONLY);
         restart = new GameAction("restart", GameAction.DETECT_INITAL_PRESS_ONLY);
-
+        instructions = new GameAction("instructions", GameAction.DETECT_INITAL_PRESS_ONLY);
+        credits = new GameAction("credits", GameAction.DETECT_INITAL_PRESS_ONLY);
+        sound = new GameAction("sound", GameAction.DETECT_INITAL_PRESS_ONLY);
+        
         inputManager = new InputManager(
             screen.getFullScreenWindow());
         inputManager.setCursor(InputManager.INVISIBLE_CURSOR);
@@ -240,6 +247,9 @@ public class WashStart extends GameCore {
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
         inputManager.mapToKey(pause, KeyEvent.VK_P);
         inputManager.mapToKey(restart, KeyEvent.VK_ENTER);
+        inputManager.mapToKey(instructions, KeyEvent.VK_I);
+        inputManager.mapToKey(credits, KeyEvent.VK_C);
+        inputManager.mapToKey(sound, KeyEvent.VK_S);
     }
     
     /**
@@ -256,6 +266,7 @@ public class WashStart extends GameCore {
         
         bPause = false;
         midiPlayer.setPaused(false);
+        bSound = true;
         
         scorelist = new LinkedList<Integer>();
         bscores = false;
@@ -316,21 +327,49 @@ public class WashStart extends GameCore {
                 midiPlayer.setPaused(bPause);
             }
             
-            
+            if (bBoy && moveRight.isPressed()) {
+                bBoy = false;
+                bGirl = true;
+            }
+            if (bGirl && moveLeft.isPressed()) {
+                bGirl = false;
+                bBoy = true;
+            }
             
             if (restart.isPressed()) {
-                
                 if (bIntro) {
                     bMenu = true;
                     bIntro = false;
                 }
                 else if (bMenu) {
                     bMenu = false;
+                    //restartGame();
+                    bBoy = true;
+                }
+                else if (bBoy) {
                     restartGame();
+                    bBoy = false;
+                }
+                else if (bGirl) {
+                    restartGame();
+                    bGirl = false;
                 }
                 else if (lives<=0) {
                     restartGame();
                 }
+            }
+            
+            if (instructions.isPressed()) {
+                bInstr = !bInstr;
+            }
+            
+            if (credits.isPressed()) {
+                bCredits = !bCredits;
+            }
+            
+            if (sound.isPressed()) {
+                bSound = !bSound;
+                midiPlayer.setPaused(bSound);
             }
             
         }
@@ -358,10 +397,20 @@ public class WashStart extends GameCore {
         if (bIntro) {
             g.drawImage(iIntro, 0, 0,
                     window.getWidth(), window.getHeight(), null);
-        }else if (bMenu) {
+        }
+        else if (bMenu) {
             g.drawImage(iMenu, 0, 0,
                     window.getWidth(), window.getHeight(), null);
-        }else if (lives>0) {
+        }
+        else if (bBoy) {
+            g.drawImage(iBoy, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+        }
+        else if (bGirl) {
+            g.drawImage(iGirl, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+        }
+        else if (lives>0) {
             if (!bPause){
                 renderer.draw(g, map,
                 screen.getWidth(), screen.getHeight());
@@ -392,6 +441,16 @@ public class WashStart extends GameCore {
                 g.drawString("#" + (i+1) + ": " + scorelist.get(i), 100, 100+50*i);
             }
         }
+        
+        if (bInstr) {
+            g.drawImage(iInstr, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+        }
+        else if (bCredits) {
+            g.drawImage(iCredits, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+        }
+        
     }
     
     /**
