@@ -178,14 +178,9 @@ public class WashStart extends GameCore {
         iLives = ResourceManager.loadImage("toothbrush.png");
         
         
-        iIntro = ResourceManager.loadImage("intro.png");
+        iIntro = ResourceManager.loadImage("menu.png");
         iMenu = ResourceManager.loadImage("menu.png");
         iInstr = ResourceManager.loadImage("menu.png");
-        iMenu = ResourceManager.loadImage("menu.png");
-        iMenu = ResourceManager.loadImage("menu.png");
-        iMenu = ResourceManager.loadImage("menu.png");
-        iMenu = ResourceManager.loadImage("menu.png");
-        iMenu = ResourceManager.loadImage("menu.png");
         
         fileName = "scores.txt";
         scorelist = new LinkedList<Integer>();
@@ -346,14 +341,10 @@ public class WashStart extends GameCore {
         if (bIntro) {
             g.drawImage(iIntro, 0, 0,
                     window.getWidth(), window.getHeight(), null);
-        }
-        
-        else if (bMenu) {
+        }else if (bMenu) {
             g.drawImage(iMenu, 0, 0,
                     window.getWidth(), window.getHeight(), null);
-        }
-        
-        else if (lives>0) {
+        }else if (lives>0) {
             if (!bPause){
                 renderer.draw(g, map,
                 screen.getWidth(), screen.getHeight());
