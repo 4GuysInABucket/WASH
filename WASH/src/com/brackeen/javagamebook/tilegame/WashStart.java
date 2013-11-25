@@ -91,8 +91,6 @@ public class WashStart extends GameCore {
     private GameAction exit;
     private GameAction fire;
     private GameAction pause;
-    private boolean bPause;
-    private boolean bMenu;
     private GameAction restart;
     public static ArrayList<Bullet> bullets;
     private int angle;
@@ -109,12 +107,30 @@ public class WashStart extends GameCore {
     public static Image iPause;
     public static Image iGameOver;
     public static Image iLives;
-    public static Image iMenu;
+    public static Image iSound;
+    
     public static Image iIntro;
+    public static Image iMenu;
+    public static Image iInstr;
     public static Image iCredits;
     public static Image iBoy;
     public static Image iGirl;
+    public static Image iLevel;
+    public static Image iLoose;
+    public static Image iWin;
     
+    private boolean bIntro;
+    private boolean bMenu;
+    private boolean bInstr;
+    private boolean bCredits;
+    private boolean bBoy;
+    private boolean bGirl;
+    private boolean bLevel;
+    private boolean bLoose;
+    private boolean bWin;
+    
+    private boolean bPause;
+    private boolean bSound;
 
     /**
      * Initializes Game and variables.
@@ -155,17 +171,29 @@ public class WashStart extends GameCore {
         lives = 3;
         score = 0;
         
-        bPause = false;
+        
         
         iPause = ResourceManager.loadImage("pause.png");
         iGameOver = ResourceManager.loadImage("gameover.png");
         iLives = ResourceManager.loadImage("toothbrush.png");
+        
+        
+        iIntro = ResourceManager.loadImage("intro.png");
+        iMenu = ResourceManager.loadImage("menu.png");
+        iInstr = ResourceManager.loadImage("menu.png");
+        iMenu = ResourceManager.loadImage("menu.png");
+        iMenu = ResourceManager.loadImage("menu.png");
+        iMenu = ResourceManager.loadImage("menu.png");
+        iMenu = ResourceManager.loadImage("menu.png");
         iMenu = ResourceManager.loadImage("menu.png");
         
         fileName = "scores.txt";
         scorelist = new LinkedList<Integer>();
         bscores = false;
-        bMenu = true;
+        
+        bIntro = true;
+        bMenu = false;
+        bPause = false;
     }
     
     /**
@@ -219,6 +247,7 @@ public class WashStart extends GameCore {
         
         scorelist = new LinkedList<Integer>();
         bscores = false;
+        
     }
     
     /**
@@ -278,7 +307,12 @@ public class WashStart extends GameCore {
             
             
             if (restart.isPressed()) {
-                if (bMenu) {
+                
+                if (bIntro) {
+                    bMenu = true;
+                    bIntro = false;
+                }
+                else if (bMenu) {
                     bMenu = false;
                     restartGame();
                 }
@@ -309,7 +343,12 @@ public class WashStart extends GameCore {
             Logger.getLogger(WashStart.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (bMenu) {
+        if (bIntro) {
+            g.drawImage(iIntro, 0, 0,
+                    window.getWidth(), window.getHeight(), null);
+        }
+        
+        else if (bMenu) {
             g.drawImage(iMenu, 0, 0,
                     window.getWidth(), window.getHeight(), null);
         }
