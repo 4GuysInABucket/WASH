@@ -232,6 +232,7 @@ public class WashStart extends GameCore {
      */
     private void restartGame() {
         
+        resourceManager.setCurrentMap(1);
         map = resourceManager.reloadMap();
         
         lives = 3;

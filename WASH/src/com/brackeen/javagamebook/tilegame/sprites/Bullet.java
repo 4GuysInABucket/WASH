@@ -54,7 +54,7 @@ public class Bullet extends Sprite{
         r=6;
         
         rad = Math.toRadians(angle);
-        speed = 2;
+        speed = 4;
         ddx = Math.cos(rad) * speed;
         ddy = Math.sin(rad) * speed;
         
