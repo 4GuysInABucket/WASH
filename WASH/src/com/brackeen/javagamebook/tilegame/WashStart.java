@@ -175,22 +175,35 @@ public class WashStart extends GameCore {
         
         
         
-        iPause = ResourceManager.loadImage("pause.png");
         iGameOver = ResourceManager.loadImage("gameover.png");
         iLives = ResourceManager.loadImage("toothbrush.png");
         
         
         iIntro = ResourceManager.loadImage("menu.png");
         iMenu = ResourceManager.loadImage("menu.png");
+        iPause = ResourceManager.loadImage("pause.png");
         iInstr = ResourceManager.loadImage("menu.png");
+        iCredits = ResourceManager.loadImage("pause.png");
+        iBoy = ResourceManager.loadImage("menu.png");
+        iGirl = ResourceManager.loadImage("pause.png");
+        iLevel = ResourceManager.loadImage("menu.png");
+        iLoose = ResourceManager.loadImage("pause.png");
+        iWin = ResourceManager.loadImage("menu.png");
+                
+        bIntro = true;
+        bMenu = false;
+        bPause = false;
+        bInstr = false;
+        bCredits = false;
+        bBoy = false;
+        bGirl = false;
+        bLevel = false;
+        bLoose = false;
+        bWin = false;
         
         fileName = "scores.txt";
         scorelist = new LinkedList<Integer>();
         bscores = false;
-        
-        bIntro = true;
-        bMenu = false;
-        bPause = false;
     }
     
     /**
