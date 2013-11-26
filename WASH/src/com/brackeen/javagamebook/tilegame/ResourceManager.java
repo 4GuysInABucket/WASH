@@ -129,6 +129,9 @@ public class ResourceManager {
         while (map == null) {
             currentMap++;
             try {
+                if(currentMap==4){
+                    currentMap=1;
+                }
                 map = loadMap(
                     "/maps/map" + currentMap + ".txt");
             }
