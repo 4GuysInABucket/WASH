@@ -55,6 +55,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,6 +83,9 @@ public class WashStart extends GameCore {
     private ResourceManager resourceManager;
     private Sound prizeSound;
     private Sound boopSound;
+    private Sound bgSound;
+    private SoundClip bgSoundClip;
+    private SoundClip watergunSound;
     private InputManager inputManager;
     private TileMapRenderer renderer;
 
@@ -131,11 +135,12 @@ public class WashStart extends GameCore {
     private boolean bMenu;
     private boolean bInstr;
     private boolean bCredits;
-    private boolean bBoy;
+    public static boolean bBoy;
     private boolean bGirl;
     private boolean bLevel;
     private boolean bLoose;
     private boolean bWin;
+    private boolean bPlayer;
     
     private boolean bPause;
     private boolean bSound;
@@ -163,14 +168,16 @@ public class WashStart extends GameCore {
 
         // load sounds
         soundManager = new SoundManager(PLAYBACK_FORMAT);
-        prizeSound = soundManager.getSound("/sounds/prize.wav");
-        boopSound = soundManager.getSound("/sounds/boop2.wav");
+        bgSound = soundManager.getSound("/sounds/megaman8bit.wav");
+        watergunSound = new SoundClip("/sounds/watergun.wav");
+        URL urlSound = WashStart.class.getResource("/sounds/megaman8bit.wav");
+        bgSoundClip= new SoundClip("/sounds/megaman8bit.wav",true);//agrega el loop al soundclip
 
         // start music
         midiPlayer = new MidiPlayer();
         Sequence sequence =
             midiPlayer.getSequence("/sounds/music.midi");
-        midiPlayer.play(sequence, true);
+        bgSoundClip.play();
         toggleDrumPlayback();
         
         bullets = new ArrayList<Bullet>();
@@ -191,12 +198,12 @@ public class WashStart extends GameCore {
         iIntro2 = ResourceManager.loadImage("intro.gif");
         iIntro3 = ResourceManager.loadImage("intro2.png");
         iIntro4 = ResourceManager.loadImage("intro2.png");
-        iMenu = ResourceManager.loadImage("menu.png");
+        iMenu = ResourceManager.loadImage("menu.jpg");
         iPause = ResourceManager.loadImage("pause.png");
         iInstr = ResourceManager.loadImage("instr.png");
         iCredits = ResourceManager.loadImage("credits.png");
-        iBoy = ResourceManager.loadImage("chooseboy.png");
-        iGirl = ResourceManager.loadImage("choosegirl.png");
+        iBoy = ResourceManager.loadImage("chooseboy.jpg");
+        iGirl = ResourceManager.loadImage("choosegirl.jpg");
         iLevel = ResourceManager.loadImage("levelcomplete.png");
         //iLoose = ResourceManager.loadImage("youloose.png");
         iWin = ResourceManager.loadImage("youwin.png");
@@ -205,13 +212,14 @@ public class WashStart extends GameCore {
         bMenu = false;
         bInstr = false;
         bCredits = false;
-        bBoy = false;
+        bBoy = true;
         bGirl = false;
         bLevel = false;
         bLoose = false;
         bWin = false;
         bPause = false;
         bSound = true;
+        bPlayer = false;
         
         fileName = "scores.txt";
         scorelist = new LinkedList<Integer>();
@@ -273,11 +281,12 @@ public class WashStart extends GameCore {
         municiones = 3;
         
         bPause = false;
-        midiPlayer.setPaused(false);
+        bgSoundClip.play();
         bSound = true;
         
         scorelist = new LinkedList<Integer>();
         bscores = false;
+        bPlayer=true;
         
     }
     
@@ -324,6 +333,7 @@ public class WashStart extends GameCore {
                                 player.getX()+bulletOffset,
                                 player.getY()+player.getHeight()/2-16));
                         map.addSprite(bullets.get(bullets.size()-1));
+                        watergunSound.play();
                         player.setBulletTimer(System.nanoTime());
                     }
                 }
@@ -332,7 +342,11 @@ public class WashStart extends GameCore {
             
             if(pause.isPressed()){
                 bPause = !bPause;
-                midiPlayer.setPaused(bPause);
+                if(bPause){
+                    bgSoundClip.stop();
+                }else{
+                    bgSoundClip.play();
+                }
             }
             
             if (bBoy && moveRight.isPressed()) {
@@ -353,14 +367,17 @@ public class WashStart extends GameCore {
                     bMenu = false;
                     //restartGame();
                     bBoy = true;
+                    bPlayer = true;
                 }
-                else if (bBoy) {
+                else if (bBoy && bPlayer) {
                     restartGame();
-                    bBoy = false;
+                    //map = resourceManager.reloadMap();
+                    bPlayer=false;
                 }
-                else if (bGirl) {
+                else if (bGirl && bPlayer) {
                     restartGame();
-                    bGirl = false;
+                    //map = resourceManager.reloadMap();
+                    bPlayer=false;
                 }
                 else if (lives<=0) {
                     restartGame();
@@ -377,7 +394,11 @@ public class WashStart extends GameCore {
             
             if (sound.isPressed()) {
                 bSound = !bSound;
-                midiPlayer.setPaused(bSound);
+                if(!bSound){
+                    bgSoundClip.stop();
+                }else{
+                    bgSoundClip.play();
+                }
             }
             
         }
@@ -433,11 +454,11 @@ public class WashStart extends GameCore {
             g.drawImage(iMenu, 0, 0,
                     window.getWidth(), window.getHeight(), null);
         }
-        else if (bBoy) {
+        else if (bBoy && bPlayer) {
             g.drawImage(iBoy, 0, 0,
                     window.getWidth(), window.getHeight(), null);
         }
-        else if (bGirl) {
+        else if (bGirl && bPlayer) {
             g.drawImage(iGirl, 0, 0,
                     window.getWidth(), window.getHeight(), null);
         }
