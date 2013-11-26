@@ -201,7 +201,7 @@ public class WashStart extends GameCore {
         iMenu = ResourceManager.loadImage("menu.jpg");
         iPause = ResourceManager.loadImage("pause.png");
         iInstr = ResourceManager.loadImage("instr.png");
-        iCredits = ResourceManager.loadImage("credits.png");
+        iCredits = ResourceManager.loadImage("credits.jpg");
         iBoy = ResourceManager.loadImage("chooseboy.jpg");
         iGirl = ResourceManager.loadImage("choosegirl.jpg");
         iLevel = ResourceManager.loadImage("levelcomplete.png");
