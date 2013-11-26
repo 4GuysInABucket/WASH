@@ -291,8 +291,8 @@ public class ResourceManager {
         char ch = 'A';
         while (true) {
             String name = "tile_" + ch + ".png";
-            URL urlImg = ResourceManager.class.getResource("/images/" + name);
-            if (urlImg==null){
+            //URL urlImg = ResourceManager.class.getResource("/images/" + name);
+            if (ch == 'M'){
                 break;
             }
             tiles.add(loadImage(name));
