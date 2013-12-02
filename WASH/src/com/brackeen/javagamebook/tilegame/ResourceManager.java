@@ -151,6 +151,10 @@ public class ResourceManager {
     public void setCurrentMap(int map){
         this.currentMap = map;
     }
+    
+    public int getCurrentMap(){
+        return this.currentMap;
+    }
 
     /**
      * Reload Map
