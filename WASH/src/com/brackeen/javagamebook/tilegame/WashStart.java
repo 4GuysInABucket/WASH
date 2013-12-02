@@ -161,7 +161,7 @@ public class WashStart extends GameCore {
         // load resources
         renderer = new TileMapRenderer();
         renderer.setBackground(
-            resourceManager.loadImage("background.jpg"));
+            resourceManager.loadImage("background.png"));
 
         // load first map
         map = resourceManager.loadNextMap();
@@ -286,7 +286,6 @@ public class WashStart extends GameCore {
         
         scorelist = new LinkedList<Integer>();
         bscores = false;
-        bPlayer=true;
         
     }
     
@@ -349,11 +348,11 @@ public class WashStart extends GameCore {
                 }
             }
             
-            if (bBoy && moveRight.isPressed()) {
+            if (bBoy && moveRight.isPressed() && bPlayer) {
                 bBoy = false;
                 bGirl = true;
             }
-            if (bGirl && moveLeft.isPressed()) {
+            if (bGirl && moveLeft.isPressed() && bPlayer) {
                 bGirl = false;
                 bBoy = true;
             }
@@ -380,6 +379,7 @@ public class WashStart extends GameCore {
                     bPlayer=false;
                 }
                 else if (lives<=0) {
+                    bPlayer=true;
                     restartGame();
                 }
             }
