@@ -160,8 +160,6 @@ public class WashStart extends GameCore {
 
         // load resources
         renderer = new TileMapRenderer();
-        renderer.setBackground(
-            resourceManager.loadImage("background.png"));
 
         // load first map
         map = resourceManager.loadNextMap();
@@ -275,6 +273,8 @@ public class WashStart extends GameCore {
         
         resourceManager.setCurrentMap(1);
         map = resourceManager.reloadMap();
+        renderer.setBackground(
+            resourceManager.loadImage("background"+resourceManager.getCurrentMap()+".jpg"));
         
         lives = 3;
         score = 0;
@@ -842,6 +842,8 @@ public class WashStart extends GameCore {
                 new EchoFilter(2000, .7f), false);
             municiones = 3;
             map = resourceManager.loadNextMap();
+            renderer.setBackground(
+            resourceManager.loadImage("background"+resourceManager.getCurrentMap()+".jpg"));
         }
     }
     
