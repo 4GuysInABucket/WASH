@@ -30,6 +30,7 @@ public class ResourceManager {
     private Sprite goalSprite;
     private Sprite grubSprite;
     private Sprite connySprite;
+    private Sprite tonnySprite;
     private Sprite flySprite;
     private Font font;
 
@@ -240,6 +241,9 @@ public class ResourceManager {
                 else if (ch == '2') {
                     addSprite(newMap, connySprite, x, y);
                 }
+                else if (ch == '3') {
+                    addSprite(newMap, tonnySprite, x, y);
+                }
             }
         }
 
@@ -428,6 +432,7 @@ public class ResourceManager {
         Animation[] flyAnim = new Animation[8];
         Animation[] grubAnim = new Animation[8];
         Animation[] connyAnim = new Animation[8];
+        Animation[] tonnyAnim = new Animation[8];
         for (int i=0; i<4; i++) {
            playerAnim[i] = createPlayerAnim(
                 images[i][0], images[i][1], images[i][2], 
@@ -474,6 +479,14 @@ public class ResourceManager {
         connyAnim[5] = createMirrorEnemyAnim("conny/menossucio");
         connyAnim[6] = createEnemyAnim("conny/mmenossucio");
         connyAnim[7] = createMirrorEnemyAnim("conny/mmenossucio");
+        tonnyAnim[0] = createEnemyAnim("tonny/sucio");
+        tonnyAnim[1] = createMirrorEnemyAnim("tonny/sucio");
+        tonnyAnim[2]= createEnemyAnim("tonny/salvado");
+        tonnyAnim[3]= createMirrorEnemyAnim("tonny/salvado");
+        tonnyAnim[4] = createEnemyAnim("tonny/menossucio");
+        tonnyAnim[5] = createMirrorEnemyAnim("tonny/menossucio");
+        tonnyAnim[6] = createEnemyAnim("tonny/mmenossucio");
+        tonnyAnim[7] = createMirrorEnemyAnim("tonny/mmenossucio");
 
         // create creature sprites
         playerSprite = new Player(playerAnim[0], playerAnim[1],
@@ -486,6 +499,8 @@ public class ResourceManager {
             grubAnim[2], grubAnim[3], grubAnim[4], grubAnim[5], grubAnim[6], grubAnim[7]);
         connySprite = new Grub(connyAnim[0], connyAnim[1],
             connyAnim[2], connyAnim[3], connyAnim[4], connyAnim[5], connyAnim[6], connyAnim[7]);
+        tonnySprite = new Grub(tonnyAnim[0], tonnyAnim[1],
+            tonnyAnim[2], tonnyAnim[3], tonnyAnim[4], tonnyAnim[5], tonnyAnim[6], tonnyAnim[7]);
     }
 
     /**
