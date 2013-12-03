@@ -18,6 +18,7 @@ public abstract class Creature extends Sprite {
     public static final int STATE_NORMAL = 0;
     public static final int STATE_DYING = 1;
     public static final int STATE_DEAD = 2;
+    public boolean onGround;
 
     private Animation left;
     private Animation right;
@@ -213,16 +214,16 @@ public abstract class Creature extends Sprite {
     public void update(long elapsedTime) {
         // select the correct Animation
         Animation newAnim = anim;
-        if(Player.onGround == false && getVelocityX() < 0 ){
+        if(this.onGround == false && getVelocityX() < 0 ){
             newAnim = jumpingLeft;
             standing = 0;
-        }else if(Player.onGround == false && getVelocityX() > 0){
+        }else if(this.onGround == false && getVelocityX() > 0){
             newAnim = jumpingRight;
             standing = 1;
-        }else if(Player.onGround == false && getVelocityX() == 0 && standing == 0 && state == STATE_NORMAL ){
+        }else if(this.onGround == false && getVelocityX() == 0 && standing == 0 && state == STATE_NORMAL ){
             newAnim = jumpingLeft;
             standing = 0;
-        }else if(Player.onGround == false && getVelocityX() == 0 && standing == 1 && state == STATE_NORMAL ){
+        }else if(this.onGround == false && getVelocityX() == 0 && standing == 1 && state == STATE_NORMAL ){
             newAnim = jumpingRight;
             standing = 1;
         }else if (getVelocityX() == 0 && standing == 0 && state == STATE_NORMAL){

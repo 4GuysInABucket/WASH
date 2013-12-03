@@ -23,6 +23,7 @@ public class Grub extends Creature {
         Animation jumpingLeft, Animation jumpingRight)
     {
         super(left, right, deadLeft, deadRight, standingLeft, standingRight, jumpingLeft, jumpingRight);
+        this.onGround=true;
     }
     
     /**

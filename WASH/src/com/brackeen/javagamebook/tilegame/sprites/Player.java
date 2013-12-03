@@ -8,8 +8,6 @@ import com.brackeen.javagamebook.graphics.Animation;
 public class Player extends Creature {
 
     private static final float JUMP_SPEED = -.95f;
-
-    public static boolean onGround;
     
     private boolean firing;
     private long bulletTimer;
@@ -85,7 +83,7 @@ public class Player extends Creature {
      * @param forceJump 
      */
     public void jump(boolean forceJump) {
-        if (onGround || forceJump) {
+        if (this.onGround || forceJump) {
             onGround = false;
             setVelocityY(JUMP_SPEED);
         }
