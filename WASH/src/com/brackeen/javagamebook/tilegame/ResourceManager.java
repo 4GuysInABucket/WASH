@@ -29,6 +29,7 @@ public class ResourceManager {
     private Sprite coinSprite;
     private Sprite goalSprite;
     private Sprite grubSprite;
+    private Sprite connySprite;
     private Sprite flySprite;
     private Font font;
 
@@ -237,7 +238,7 @@ public class ResourceManager {
                     addSprite(newMap, grubSprite, x, y);
                 }
                 else if (ch == '2') {
-                    addSprite(newMap, flySprite, x, y);
+                    addSprite(newMap, connySprite, x, y);
                 }
             }
         }
@@ -426,6 +427,7 @@ public class ResourceManager {
         Animation[] playerAnimN = new Animation[8];
         Animation[] flyAnim = new Animation[8];
         Animation[] grubAnim = new Animation[8];
+        Animation[] connyAnim = new Animation[8];
         for (int i=0; i<4; i++) {
            playerAnim[i] = createPlayerAnim(
                 images[i][0], images[i][1], images[i][2], 
@@ -456,36 +458,22 @@ public class ResourceManager {
         
         flyAnim[4] = createPlayerStanding(images[0][10], images[0][10]);
         flyAnim[5] = createPlayerStanding(images[1][10], images[1][10]);
-        grubAnim[0] = createGrubAnim(
-                images[0][24], images[0][25],images[0][26], images[0][27],
-                    images[0][28], images[0][29],images[0][30], images[0][31]);
-        grubAnim[1] = createGrubAnim(
-                images[1][24], images[1][25],images[1][26], images[1][27],
-                    images[1][28], images[1][29],images[1][30], images[1][31]);
-        grubAnim[2]= createLimpioAnim(
-                images[0][32],images[0][33],images[0][34],images[0][35],
-                images[0][36],images[0][37],images[0][38],images[0][39],
-                images[0][40],images[0][41],images[0][42],images[0][43],
-                images[0][44],images[0][45],images[0][46],images[0][47],
-                images[0][48]);
-        grubAnim[3]= createLimpioAnim(
-                images[1][32],images[1][33],images[1][34],images[1][35],
-                images[1][36],images[1][37],images[1][38],images[1][39],
-                images[1][40],images[1][41],images[1][42],images[1][43],
-                images[1][44],images[1][45],images[1][46],images[1][47],
-                images[1][48]);
-        grubAnim[4] = createGrubAnim(
-                images[0][49], images[0][50],images[0][51], images[0][52],
-                    images[0][53], images[0][54],images[0][55], images[0][56]);
-        grubAnim[5] = createGrubAnim(
-                images[1][49], images[1][50],images[1][51], images[1][52],
-                    images[1][53], images[1][54],images[1][55], images[1][56]);
-        grubAnim[6] = createGrubAnim(
-                images[0][57], images[0][58],images[0][59], images[0][60],
-                    images[0][61], images[0][62],images[0][63], images[0][64]);
-        grubAnim[7] = createGrubAnim(
-                images[1][57], images[1][58],images[1][59], images[1][60],
-                    images[1][61], images[1][62],images[1][63], images[1][64]);
+        grubAnim[0] = createEnemyAnim("sucio");
+        grubAnim[1] = createMirrorEnemyAnim("sucio");
+        grubAnim[2]= createEnemyAnim("salvado");
+        grubAnim[3]= createMirrorEnemyAnim("salvado");
+        grubAnim[4] = createEnemyAnim("menossucio");
+        grubAnim[5] = createMirrorEnemyAnim("menossucio");
+        grubAnim[6] = createEnemyAnim("mmenossucio");
+        grubAnim[7] = createMirrorEnemyAnim("mmenossucio");
+        connyAnim[0] = createEnemyAnim("conny/sucio");
+        connyAnim[1] = createMirrorEnemyAnim("conny/sucio");
+        connyAnim[2]= createEnemyAnim("conny/salvado");
+        connyAnim[3]= createMirrorEnemyAnim("conny/salvado");
+        connyAnim[4] = createEnemyAnim("conny/menossucio");
+        connyAnim[5] = createMirrorEnemyAnim("conny/menossucio");
+        connyAnim[6] = createEnemyAnim("conny/mmenossucio");
+        connyAnim[7] = createMirrorEnemyAnim("conny/mmenossucio");
 
         // create creature sprites
         playerSprite = new Player(playerAnim[0], playerAnim[1],
@@ -496,6 +484,8 @@ public class ResourceManager {
             flyAnim[2], flyAnim[3], flyAnim[4], flyAnim[5], flyAnim[4], flyAnim[5]);
         grubSprite = new Grub(grubAnim[0], grubAnim[1],
             grubAnim[2], grubAnim[3], grubAnim[4], grubAnim[5], grubAnim[6], grubAnim[7]);
+        connySprite = new Grub(connyAnim[0], connyAnim[1],
+            connyAnim[2], connyAnim[3], connyAnim[4], connyAnim[5], connyAnim[6], connyAnim[7]);
     }
 
     /**
@@ -610,6 +600,35 @@ public class ResourceManager {
         anim.addFrame(img8, 150);
         return anim;
     }
+    
+    /**
+     * 
+     * @param str
+     * @return anim
+     */
+    
+    private Animation createEnemyAnim(String str) {
+        Animation anim = new Animation();
+        for(int i=1;i<=26;i++){
+            anim.addFrame(loadImage(str+i+".png"), 80);
+        }
+        return anim;
+    }
+    
+    /**
+     * 
+     * @param str
+     * @return anim
+     */
+    
+    private Animation createMirrorEnemyAnim(String str) {
+        Animation anim = new Animation();
+        for(int i=1;i<=26;i++){
+            anim.addFrame(getMirrorImage(loadImage(str+i+".png")), 80);
+        }
+        return anim;
+    }
+    
 
     /**
      * Load PowerUp Sprites
